@@ -1,10 +1,18 @@
 import React from 'react';
 import { X, ExternalLink, ChevronRight, Cpu, Layers, Globe, Lightbulb, ArrowRight } from 'lucide-react';
 
+const getDarkAccentText = (colorName) => {
+  if (colorName === 'emerald') return '#34d399';
+  if (colorName === 'blue') return '#60a5fa';
+  if (colorName === 'purple') return '#a78bfa';
+  return '#60a5fa';
+};
+
 export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
   const accentColor = project.accentHex;
+  const textColor = getDarkAccentText(project.accentColor);
 
   const sections = [
     {
@@ -34,9 +42,9 @@ export default function ProjectModal({ project, onClose }) {
       <div
         className="w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl"
         style={{
-          background: '#07101E',
-          border: '1px solid rgba(255,255,255,0.1)',
-          boxShadow: `0 0 60px rgba(0,0,0,0.8), 0 0 80px ${accentColor}15`,
+          background: '#0c1322',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${accentColor}15`,
         }}
         onClick={e => e.stopPropagation()}
       >
@@ -44,9 +52,9 @@ export default function ProjectModal({ project, onClose }) {
         <div
           className="sticky top-0 z-10 flex items-start justify-between p-6 gap-4"
           style={{
-            background: 'rgba(13, 21, 38, 0.97)',
+            background: 'rgba(12, 19, 34, 0.95)',
             backdropFilter: 'blur(12px)',
-            borderBottom: '1px solid rgba(255,255,255,0.07)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
           }}
         >
           <div className="flex-1">
@@ -54,9 +62,9 @@ export default function ProjectModal({ project, onClose }) {
               <span
                 className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
                 style={{
-                  background: `${accentColor}15`,
-                  border: `1px solid ${accentColor}30`,
-                  color: accentColor,
+                  background: project.accentBg,
+                  border: `1px solid ${project.accentBorder}`,
+                  color: textColor,
                   fontFamily: 'JetBrains Mono, monospace',
                 }}
               >
@@ -73,9 +81,9 @@ export default function ProjectModal({ project, onClose }) {
           <button
             onClick={onClose}
             className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#9ca3af', cursor: 'pointer' }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#9ca3af'; }}
+            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#9ca3af', cursor: 'pointer' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#fff'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#9ca3af'; }}
           >
             <X size={16} />
           </button>
@@ -84,19 +92,34 @@ export default function ProjectModal({ project, onClose }) {
         {/* Body */}
         <div className="p-6 space-y-8">
 
+          {/* Project Image Mockup */}
+          {project.image && (
+            <div
+              className="relative overflow-hidden rounded-xl aspect-[16/9] border"
+              style={{ borderColor: 'rgba(255, 255, 255, 0.08)', background: '#070c1c' }}
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
+
           {/* Overview */}
           <div>
             <SectionLabel label="Overview" color={accentColor} />
             <p style={{ color: '#9ca3af', lineHeight: 1.75, fontSize: '0.95rem' }}>{project.description}</p>
             <div className="flex items-center gap-2 mt-3">
               <span className="text-xs font-semibold" style={{ color: '#6b7280' }}>Deployed on:</span>
-              <span className="px-2 py-0.5 rounded text-xs font-semibold" style={{ background: `${accentColor}10`, color: accentColor, border: `1px solid ${accentColor}25` }}>
+              <span className="px-2 py-0.5 rounded text-xs font-semibold" style={{ background: project.accentBg, color: textColor, border: `1px solid ${project.accentBorder}` }}>
                 {project.platform}
               </span>
             </div>
             {project.metric && (
-              <div className="inline-flex items-center gap-3 mt-4 px-5 py-3 rounded-xl" style={{ background: `${accentColor}10`, border: `1px solid ${accentColor}25` }}>
-                <span className="text-2xl font-black" style={{ color: accentColor }}>{project.metric.value}</span>
+              <div className="inline-flex items-center gap-3 mt-4 px-5 py-3 rounded-xl" style={{ background: `${accentColor}12`, border: `1px solid ${accentColor}25` }}>
+                <span className="text-2xl font-black" style={{ color: textColor }}>{project.metric.value}</span>
                 <span className="text-sm font-medium" style={{ color: '#9ca3af' }}>{project.metric.label}</span>
               </div>
             )}
@@ -123,7 +146,7 @@ export default function ProjectModal({ project, onClose }) {
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div
                       className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
-                      style={{ background: `${accentColor}20`, color: accentColor, border: `1px solid ${accentColor}35` }}
+                      style={{ background: project.accentBg, color: textColor, border: `1px solid ${project.accentBorder}` }}
                     >
                       {i + 1}
                     </div>
@@ -177,7 +200,7 @@ export default function ProjectModal({ project, onClose }) {
             <ul className="space-y-2">
               {project.approach.map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: '#9ca3af', lineHeight: 1.65 }}>
-                  <ArrowRight size={14} className="flex-shrink-0 mt-0.5" style={{ color: accentColor }} />
+                  <ArrowRight size={14} className="flex-shrink-0 mt-0.5" style={{ color: textColor }} />
                   {item}
                 </li>
               ))}
@@ -205,7 +228,7 @@ export default function ProjectModal({ project, onClose }) {
                     lineHeight: 1.6,
                   }}
                 >
-                  <span style={{ color: accentColor, flexShrink: 0, fontSize: '0.8rem', fontWeight: 700, marginTop: '2px' }}>
+                  <span style={{ color: textColor, flexShrink: 0, fontSize: '0.8rem', fontWeight: 700, marginTop: '2px' }}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   {item}
@@ -227,7 +250,7 @@ export default function ProjectModal({ project, onClose }) {
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = `0 8px 25px ${accentColor}40`;
+                e.currentTarget.style.boxShadow = `0 8px 25px ${accentColor}30`;
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = 'none';
@@ -249,7 +272,7 @@ function SectionLabel({ label, color }) {
   return (
     <div className="flex items-center gap-2 mb-3">
       <div className="w-1 h-5 rounded-full" style={{ background: color }} />
-      <h3 className="font-bold text-base" style={{ color: '#e5e7eb' }}>{label}</h3>
+      <h3 className="font-bold text-base" style={{ color: '#0f172a' }}>{label}</h3>
     </div>
   );
 }

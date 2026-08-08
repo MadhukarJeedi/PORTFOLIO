@@ -3,13 +3,21 @@ import { ExternalLink, ChevronRight, Star, ArrowRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import ProjectModal from './ProjectModal';
 
+const getDarkAccentText = (colorName) => {
+  if (colorName === 'emerald') return '#34d399';
+  if (colorName === 'blue') return '#60a5fa';
+  if (colorName === 'purple') return '#a78bfa';
+  return '#60a5fa';
+};
+
 function ProjectCard({ project, onViewDetails, index }) {
   const { accentColor, accentHex, accentBg, accentBorder } = project;
   const isFeatured = project.featured;
+  const textColor = getDarkAccentText(accentColor);
 
   return (
     <div
-      className="rounded-2xl overflow-hidden transition-all duration-300 relative flex flex-col"
+      className="project-card-container rounded-2xl overflow-hidden transition-all duration-300 relative flex flex-col"
       style={{
         background: isFeatured
           ? 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(13,21,38,0.95) 40%)'
@@ -62,6 +70,24 @@ function ProjectCard({ project, onViewDetails, index }) {
         }}
       />
 
+      {/* Project Image Header */}
+      {project.image && (
+        <div className="relative overflow-hidden aspect-[16/10] bg-[#070c1c]" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+          <img
+            src={project.image}
+            alt={project.title}
+            className="project-card-img"
+          />
+          {/* Bottom fade shadow */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(to top, rgba(7, 12, 28, 0.6) 0%, transparent 40%)',
+            }}
+          />
+        </div>
+      )}
+
       <div className="p-6 flex flex-col flex-1">
         {/* Category / tags */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -70,7 +96,7 @@ function ProjectCard({ project, onViewDetails, index }) {
             style={{
               background: accentBg,
               border: `1px solid ${accentBorder}`,
-              color: accentHex,
+              color: textColor,
               fontFamily: 'JetBrains Mono, monospace',
             }}
           >
@@ -90,7 +116,7 @@ function ProjectCard({ project, onViewDetails, index }) {
         >
           {project.title}
         </h3>
-        <p className="text-sm font-medium mb-3" style={{ color: accentHex }}>{project.tagline}</p>
+        <p className="text-sm font-medium mb-3" style={{ color: textColor }}>{project.tagline}</p>
         <p className="text-sm leading-relaxed mb-5" style={{ color: '#9ca3af' }}>
           {project.description}
         </p>
@@ -110,7 +136,7 @@ function ProjectCard({ project, onViewDetails, index }) {
                   className="text-xs px-2 py-1 rounded-lg font-medium"
                   style={{
                     background: `${accentHex}10`,
-                    color: accentHex,
+                    color: textColor,
                     border: `1px solid ${accentHex}20`,
                   }}
                 >
@@ -130,7 +156,7 @@ function ProjectCard({ project, onViewDetails, index }) {
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl mb-5 self-start"
             style={{ background: `${accentHex}12`, border: `1px solid ${accentHex}25` }}
           >
-            <span className="text-lg font-black" style={{ color: accentHex }}>{project.metric.value}</span>
+            <span className="text-lg font-black" style={{ color: textColor }}>{project.metric.value}</span>
             <span className="text-xs font-medium" style={{ color: '#9ca3af' }}>{project.metric.label}</span>
           </div>
         )}
@@ -158,7 +184,7 @@ function ProjectCard({ project, onViewDetails, index }) {
           <span className="text-xs" style={{ color: '#4b5563' }}>Deployed on:</span>
           <span
             className="text-xs font-semibold px-2.5 py-1 rounded-full"
-            style={{ background: `${accentHex}10`, color: accentHex, border: `1px solid ${accentHex}20` }}
+            style={{ background: `${accentHex}10`, color: textColor, border: `1px solid ${accentHex}20` }}
           >
             {project.platform}
           </span>
@@ -192,7 +218,7 @@ function ProjectCard({ project, onViewDetails, index }) {
           <button
             onClick={() => onViewDetails(project)}
             className="btn-ghost text-sm"
-            style={{ flex: 1, justifyContent: 'center' }}
+            style={{ flex: 1, justifyCenter: 'center' }}
           >
             View Details
             <ArrowRight size={14} />
@@ -207,7 +233,18 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <section id="projects" className="py-24" style={{ background: '#04080F' }}>
+    <section id="projects" className="py-32 sm:py-36" style={{ background: '#080e1a' }}>
+      <style>{`
+        .project-card-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card-container:hover .project-card-img {
+          transform: scale(1.04);
+        }
+      `}</style>
       <div className="section-container">
 
         {/* Header */}

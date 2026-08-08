@@ -1,5 +1,6 @@
 import React from 'react';
 import { Download, ChevronRight, FileText } from 'lucide-react';
+import { profile } from '../data/profile';
 
 export default function ResumeCTA() {
   const handleScroll = (href) => {
@@ -9,15 +10,15 @@ export default function ResumeCTA() {
 
   return (
     <section
-      className="py-24"
-      style={{ background: '#04080F' }}
+      className="py-32 sm:py-36"
+      style={{ background: '#080e1a' }}
     >
       <div className="section-container">
         <div
           className="rounded-3xl p-10 sm:p-14 relative overflow-hidden text-center"
           style={{
-            background: 'linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(139,92,246,0.08) 50%, rgba(16,185,129,0.06) 100%)',
-            border: '1px solid rgba(59,130,246,0.2)',
+            background: 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(139,92,246,0.06) 50%, rgba(59,130,246,0.02) 100%)',
+            border: '1px solid rgba(59, 130, 246, 0.2)',
           }}
         >
           {/* Background glow */}
@@ -35,13 +36,14 @@ export default function ResumeCTA() {
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6"
             style={{
-              background: 'rgba(59,130,246,0.1)',
-              border: '1px solid rgba(59,130,246,0.25)',
+              background: 'rgba(59, 130, 246, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.25)',
             }}
           >
             <FileText size={28} style={{ color: '#60a5fa' }} />
           </div>
 
+          {/* Title */}
           <h2
             className="font-bold mb-4"
             style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', color: '#f9fafb', letterSpacing: '-0.02em' }}
@@ -58,8 +60,9 @@ export default function ResumeCTA() {
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="/Jeedi_Madhukar_Resume.pdf"
-              download
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary"
             >
               <Download size={16} />

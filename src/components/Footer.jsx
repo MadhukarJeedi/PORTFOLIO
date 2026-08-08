@@ -7,6 +7,8 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Education', href: '#education' },
+  { label: 'Certifications', href: '#certifications' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -43,7 +45,7 @@ export default function Footer() {
   return (
     <footer
       className="py-10"
-      style={{ background: '#060b17', borderTop: '1px solid rgba(255,255,255,0.05)' }}
+      style={{ background: '#080e1a', borderTop: '1px solid rgba(255,255,255,0.06)' }}
     >
       <div className="section-container">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -52,14 +54,14 @@ export default function Footer() {
           <div className="text-center sm:text-left">
             <div className="flex items-center gap-2 justify-center sm:justify-start mb-1.5">
               <div
-                className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs"
+                className="w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs text-white"
                 style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}
               >
                 JM
               </div>
-              <span className="font-bold text-base" style={{ color: '#f9fafb' }}>JEEDI MADHUKAR</span>
+              <span className="font-bold text-base" style={{ color: '#e5e7eb' }}>JEEDI MADHUKAR</span>
             </div>
-            <p className="text-xs" style={{ color: '#4b5563' }}>
+            <p className="text-xs" style={{ color: '#9ca3af' }}>
               AI/ML Engineer &nbsp;·&nbsp; Data Science &nbsp;·&nbsp; Generative AI
             </p>
           </div>
@@ -73,9 +75,9 @@ export default function Footer() {
                     href={href}
                     onClick={(e) => { e.preventDefault(); handleNav(href); }}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-200 no-underline"
-                    style={{ color: '#6b7280' }}
-                    onMouseEnter={e => e.target.style.color = '#9ca3af'}
-                    onMouseLeave={e => e.target.style.color = '#6b7280'}
+                    style={{ color: '#9ca3af' }}
+                    onMouseEnter={e => e.target.style.color = '#f3f4f6'}
+                    onMouseLeave={e => e.target.style.color = '#9ca3af'}
                   >
                     {label}
                   </a>
@@ -98,9 +100,9 @@ export default function Footer() {
                   title={link.label}
                   className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 no-underline"
                   style={{
-                    background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    color: '#6b7280',
+                    background: 'rgba(255,255,255,0.02)',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    color: '#9ca3af',
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.color = link.color;
@@ -108,9 +110,9 @@ export default function Footer() {
                     e.currentTarget.style.borderColor = link.color + '40';
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.color = '#6b7280';
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                    e.currentTarget.style.color = '#9ca3af';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)';
                   }}
                 >
                   {IconComp && <IconComp size={15} />}
@@ -121,8 +123,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-6 pt-5 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-          <p className="text-xs" style={{ color: '#374151' }}>
+        <div className="mt-6 pt-5 text-center" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-xs" style={{ color: '#6b7280' }}>
             © 2026 Jeedi Madhukar. All rights reserved.
           </p>
         </div>

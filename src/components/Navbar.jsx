@@ -45,9 +45,9 @@ export default function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(8, 13, 26, 0.92)' : 'transparent',
+        background: scrolled ? 'rgba(3, 7, 18, 0.85)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.07)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.06)' : 'none',
       }}
     >
       <div className="section-container">
@@ -59,12 +59,12 @@ export default function Navbar() {
             className="flex items-center gap-2 no-underline"
           >
             <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center font-black text-sm"
+              className="w-9 h-9 rounded-lg flex items-center justify-center font-black text-sm text-white"
               style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}
             >
               JM
             </div>
-            <span className="font-bold text-white text-lg hidden sm:block tracking-tight">
+            <span className="font-bold text-slate-200 text-lg hidden sm:block tracking-tight">
               Jeedi<span style={{ color: '#3b82f6' }}>.</span>
             </span>
           </a>
@@ -77,15 +77,15 @@ export default function Navbar() {
               return (
                 <li key={href}>
                   <a
-                    href={href}
-                    onClick={(e) => { e.preventDefault(); handleNav(href); }}
-                    className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 no-underline"
-                    style={{
-                      color: isActive ? '#60a5fa' : '#9ca3af',
-                      background: isActive ? 'rgba(59,130,246,0.1)' : 'transparent',
-                    }}
-                    onMouseEnter={e => { if (!isActive) e.target.style.color = '#e5e7eb'; }}
-                    onMouseLeave={e => { if (!isActive) e.target.style.color = '#9ca3af'; }}
+                     href={href}
+                     onClick={(e) => { e.preventDefault(); handleNav(href); }}
+                     className="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 no-underline"
+                     style={{
+                       color: isActive ? '#60a5fa' : '#9ca3af',
+                       background: isActive ? 'rgba(59, 130, 246, 0.12)' : 'transparent',
+                     }}
+                     onMouseEnter={e => { if (!isActive) e.target.style.color = '#f3f4f6'; }}
+                     onMouseLeave={e => { if (!isActive) e.target.style.color = '#9ca3af'; }}
                   >
                     {label}
                   </a>
@@ -105,7 +105,7 @@ export default function Navbar() {
                 color: '#fff',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(59,130,246,0.4)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(59,130,246,0.3)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={e => {
@@ -122,8 +122,8 @@ export default function Navbar() {
           <button
             className="lg:hidden p-2 rounded-lg transition-colors duration-200"
             style={{
-              background: mobileOpen ? 'rgba(59,130,246,0.1)' : 'transparent',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: mobileOpen ? 'rgba(59, 130, 246, 0.12)' : 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               color: '#e5e7eb',
               cursor: 'pointer',
             }}
@@ -140,9 +140,9 @@ export default function Navbar() {
         <div
           className="lg:hidden"
           style={{
-            background: 'rgba(8, 13, 26, 0.97)',
+            background: 'rgba(3, 7, 18, 0.98)',
             backdropFilter: 'blur(20px)',
-            borderTop: '1px solid rgba(255,255,255,0.07)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
           }}
         >
           <ul className="section-container py-4 flex flex-col gap-1 list-none">
@@ -153,7 +153,7 @@ export default function Navbar() {
                   onClick={(e) => { e.preventDefault(); handleNav(href); }}
                   className="block px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 no-underline"
                   style={{ color: '#9ca3af' }}
-                  onMouseEnter={e => { e.target.style.color = '#e5e7eb'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
+                  onMouseEnter={e => { e.target.style.color = '#f3f4f6'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
                   onMouseLeave={e => { e.target.style.color = '#9ca3af'; e.target.style.background = 'transparent'; }}
                 >
                   {label}

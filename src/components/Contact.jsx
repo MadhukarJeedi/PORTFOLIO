@@ -68,8 +68,8 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24"
-      style={{ background: 'linear-gradient(180deg, #04080F 0%, #07101E 50%, #04080F 100%)' }}
+      className="py-32 sm:py-36"
+      style={{ background: '#030712' }}
     >
       <div className="section-container">
 
@@ -100,9 +100,9 @@ export default function Contact() {
             <a
               href={`mailto:${profile.email}`}
               className="flex items-center gap-4 p-5 rounded-2xl transition-all duration-200 no-underline group"
-              style={{ background: 'rgba(7,12,28,0.55)', border: '1px solid rgba(255,255,255,0.07)' }}
-              onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(59,130,246,0.3)'}
-              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)'}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.05)' }}
+              onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(59,130,246,0.25)'}
+              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.05)'}
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -116,7 +116,7 @@ export default function Contact() {
                   {profile.email}
                 </p>
               </div>
-              <ExternalLink size={14} className="ml-auto opacity-40" style={{ color: '#60a5fa' }} />
+              <ExternalLink size={14} className="ml-auto opacity-55" style={{ color: '#60a5fa' }} />
             </a>
 
             {/* Phone */}
@@ -124,9 +124,9 @@ export default function Contact() {
               href={profile.phoneHref}
               aria-label="Call Jeedi Madhukar"
               className="flex items-center gap-4 p-5 rounded-2xl transition-all duration-200 no-underline group"
-              style={{ background: 'rgba(7,12,28,0.55)', border: '1px solid rgba(255,255,255,0.07)' }}
-              onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(139,92,246,0.3)'}
-              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)'}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.05)' }}
+              onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(139,92,246,0.25)'}
+              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.05)'}
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -140,15 +140,15 @@ export default function Contact() {
                   {profile.phone}
                 </p>
               </div>
-              <ExternalLink size={14} className="ml-auto opacity-40" style={{ color: '#a78bfa' }} />
+              <ExternalLink size={14} className="ml-auto opacity-55" style={{ color: '#a78bfa' }} />
             </a>
 
             {/* Location */}
             <div
               className="flex items-center gap-4 p-5 rounded-2xl transition-all duration-200"
-              style={{ background: 'rgba(7,12,28,0.55)', border: '1px solid rgba(255,255,255,0.07)' }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.05)' }}
               onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(16,185,129,0.25)'}
-              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)'}
+              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.05)'}
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -165,7 +165,7 @@ export default function Contact() {
             {/* Social profiles */}
             <div
               className="p-5 rounded-2xl"
-              style={{ background: 'rgba(7,12,28,0.55)', border: '1px solid rgba(255,255,255,0.07)' }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.05)' }}
             >
               <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>
                 Professional Profiles
@@ -182,25 +182,25 @@ export default function Contact() {
                       aria-label={link.ariaLabel}
                       className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 no-underline"
                       style={{
-                        background: 'rgba(255,255,255,0.03)',
-                        border: '1px solid rgba(255,255,255,0.07)',
+                        background: 'rgba(255,255,255,0.02)',
+                        border: '1px solid rgba(255,255,255,0.05)',
                         color: '#9ca3af',
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.color = link.color;
                         e.currentTarget.style.border = `1px solid ${link.color}35`;
-                        e.currentTarget.style.background = `${link.color}08`;
+                        e.currentTarget.style.background = `${link.color}15`;
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.color = '#9ca3af';
-                        e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)';
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                        e.currentTarget.style.border = '1px solid rgba(255,255,255,0.05)';
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
                       }}
                     >
                       {IconComp && <IconComp size={16} />}
                       <div className="flex-1">
                         <span className="block font-semibold" style={{ color: '#e5e7eb', fontSize: '0.875rem' }}>{link.label}</span>
-                        <span className="block text-xs mt-0.5" style={{ color: '#6b7280' }}>{link.description}</span>
+                        <span className="block text-xs mt-0.5" style={{ color: '#9ca3af' }}>{link.description}</span>
                       </div>
                       <ExternalLink size={13} className="flex-shrink-0 opacity-50" />
                     </a>
@@ -246,7 +246,7 @@ export default function Contact() {
               </div>
               <InputField label="Subject" name="subject" type="text" value={formData.subject} onChange={handleChange} required />
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6b7280' }}>
+                <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#9ca3af' }}>
                   Message
                 </label>
                 <textarea
@@ -256,16 +256,15 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   placeholder="Tell me about the opportunity..."
-                  className="w-full px-4 py-3 rounded-xl text-sm transition-all duration-200 resize-none"
+                  className="w-full px-4 py-3 rounded-xl text-sm transition-all duration-200 resize-none text-slate-200"
                   style={{
-                    background: 'rgba(0,0,0,0.3)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#e5e7eb',
+                    background: 'rgba(3, 7, 18, 0.7)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     outline: 'none',
                     fontFamily: 'Inter, sans-serif',
                   }}
-                  onFocus={e => e.target.style.border = '1px solid rgba(59,130,246,0.4)'}
-                  onBlur={e => e.target.style.border = '1px solid rgba(255,255,255,0.1)'}
+                  onFocus={e => e.target.style.border = '1px solid rgba(59,130,246,0.5)'}
+                  onBlur={e => e.target.style.border = '1px solid rgba(255,255,255,0.08)'}
                 />
               </div>
               <button
@@ -281,7 +280,7 @@ export default function Contact() {
                   cursor: status === 'sending' ? 'not-allowed' : 'pointer',
                   opacity: status === 'sending' ? 0.7 : 1,
                 }}
-                onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.boxShadow = '0 8px 25px rgba(59,130,246,0.4)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
+                onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.boxShadow = '0 8px 25px rgba(59,130,246,0.35)'; e.currentTarget.style.transform = 'translateY(-1px)'; } }}
                 onMouseLeave={e => { e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'none'; }}
               >
                 <Send size={15} />
@@ -298,7 +297,7 @@ export default function Contact() {
 function InputField({ label, name, type, value, onChange, required }) {
   return (
     <div>
-      <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6b7280' }}>
+      <label className="block text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#9ca3af' }}>
         {label}
       </label>
       <input
@@ -308,16 +307,15 @@ function InputField({ label, name, type, value, onChange, required }) {
         onChange={onChange}
         required={required}
         placeholder={label}
-        className="w-full px-4 py-3 rounded-xl text-sm transition-all duration-200"
+        className="w-full px-4 py-3 rounded-xl text-sm transition-all duration-200 text-slate-200"
         style={{
-          background: 'rgba(0,0,0,0.3)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          color: '#e5e7eb',
+          background: 'rgba(3, 7, 18, 0.7)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
           outline: 'none',
           fontFamily: 'Inter, sans-serif',
         }}
-        onFocus={e => e.target.style.border = '1px solid rgba(59,130,246,0.4)'}
-        onBlur={e => e.target.style.border = '1px solid rgba(255,255,255,0.1)'}
+        onFocus={e => e.target.style.border = '1px solid rgba(59,130,246,0.5)'}
+        onBlur={e => e.target.style.border = '1px solid rgba(255,255,255,0.08)'}
       />
     </div>
   );

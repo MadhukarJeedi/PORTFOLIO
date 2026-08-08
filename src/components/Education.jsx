@@ -40,9 +40,9 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="py-24"
+      className="py-32 sm:py-36"
       style={{
-        background: 'linear-gradient(180deg, #04080F 0%, #07101E 50%, #04080F 100%)',
+        background: '#080e1a',
       }}
     >
       <div className="section-container">
@@ -70,7 +70,7 @@ export default function Education() {
               style={{ background: 'linear-gradient(to bottom, #3b82f6, #8b5cf6, #10b981, #f59e0b)' }}
             />
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {education.map((edu, i) => (
                 <div key={i} className="flex gap-6">
                   {/* Dot */}
@@ -78,7 +78,7 @@ export default function Education() {
                     <div
                       className="w-10 h-10 rounded-full flex items-center justify-center z-10 border-2"
                       style={{
-                        background: edu.highlight ? edu.color : '#07101E',
+                        background: edu.highlight ? edu.color : '#080e1a',
                         borderColor: edu.color,
                       }}
                     >
@@ -86,22 +86,12 @@ export default function Education() {
                     </div>
                   </div>
 
-                  {/* Card */}
+                  {/* Content node (no card container) */}
                   <div
-                    className="flex-1 rounded-2xl p-5 transition-all duration-300"
+                    className="flex-1 py-1"
                     style={{
-                      background: edu.highlight
-                        ? `${edu.color}08`
-                        : 'rgba(17, 24, 39, 0.4)',
-                      border: `1px solid ${edu.highlight ? edu.color + '30' : 'rgba(255,255,255,0.07)'}`,
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.border = `1px solid ${edu.color}40`;
-                      e.currentTarget.style.transform = 'translateX(4px)';
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.border = `1px solid ${edu.highlight ? edu.color + '30' : 'rgba(255,255,255,0.07)'}`;
-                      e.currentTarget.style.transform = 'none';
+                      background: 'transparent',
+                      border: 'none',
                     }}
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3">
@@ -112,11 +102,11 @@ export default function Education() {
                       <div className="text-right flex-shrink-0">
                         <span
                           className="block text-sm font-bold px-3 py-1 rounded-full"
-                          style={{ background: `${edu.color}12`, color: edu.color, border: `1px solid ${edu.color}25` }}
+                          style={{ background: `${edu.color}15`, color: edu.color, border: `1px solid ${edu.color}30` }}
                         >
                           {edu.year}
                         </span>
-                        <span className="block text-xs mt-1.5 font-semibold" style={{ color: '#6b7280' }}>
+                        <span className="block text-xs mt-1.5 font-semibold" style={{ color: '#9ca3af' }}>
                           Score: {edu.score}
                         </span>
                       </div>

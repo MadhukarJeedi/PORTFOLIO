@@ -25,9 +25,9 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-24"
+      className="py-32 sm:py-36"
       style={{
-        background: 'linear-gradient(180deg, #04080F 0%, #07101E 50%, #04080F 100%)',
+        background: '#030712',
       }}
     >
       <div className="section-container">

@@ -109,9 +109,9 @@ export const certificationGroups = [
 ];
 
 export const issuerColors = {
-  blue:  { bg: "rgba(59, 130, 246, 0.1)",  border: "rgba(59, 130, 246, 0.3)",  text: "#60a5fa" },
-  teal:  { bg: "rgba(20, 184, 166, 0.1)",  border: "rgba(20, 184, 166, 0.3)",  text: "#2dd4bf" },
-  green: { bg: "rgba(34, 197, 94, 0.1)",   border: "rgba(34, 197, 94, 0.3)",   text: "#4ade80" },
-  amber: { bg: "rgba(245, 158, 11, 0.1)",  border: "rgba(245, 158, 11, 0.3)",  text: "#fbbf24" },
+  blue:  { bg: "rgba(59, 130, 246, 0.1)",  border: "rgba(59, 130, 246, 0.25)",  text: "#60a5fa" },
+  teal:  { bg: "rgba(20, 184, 166, 0.1)",  border: "rgba(20, 184, 166, 0.25)",  text: "#2dd4bf" },
+  green: { bg: "rgba(34, 197, 94, 0.1)",   border: "rgba(34, 197, 94, 0.25)",   text: "#4ade80" },
+  amber: { bg: "rgba(245, 158, 11, 0.1)",  border: "rgba(245, 158, 11, 0.25)",  text: "#fbbf24" },
 };
 

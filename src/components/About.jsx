@@ -45,7 +45,39 @@ export default function About() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section id="about" className="py-24" style={{ background: '#04080F' }}>
+    <section id="about" className="py-32 sm:py-36" style={{ background: '#080e1a' }}>
+      <style>{`
+        .pipeline-container {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 32px;
+          overflow-x: auto;
+          scrollbar-width: none;
+          -webkit-overflow-scrolling: touch;
+          padding: 4px;
+        }
+        .pipeline-container::-webkit-scrollbar {
+          display: none;
+        }
+        .pipeline-btn {
+          flex: 1;
+          min-w: 135px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 16px;
+          font-size: 0.875rem;
+          font-weight: 600;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: transparent;
+          color: #9ca3af;
+          cursor: pointer;
+          transition: all 0.2s;
+          white-space: nowrap;
+        }
+      `}</style>
       <div className="section-container">
 
         {/* Header */}
@@ -55,7 +87,7 @@ export default function About() {
           </div>
           <h2
             className="font-bold mb-4"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#f9fafb', letterSpacing: '-0.02em' }}
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#f3f4f6', letterSpacing: '-0.02em' }}
           >
             Data Science Graduate &amp;{' '}
             <span className="gradient-text-blue">AI/ML Engineer</span>
@@ -71,10 +103,11 @@ export default function About() {
 
         {/* Interactive Pipeline */}
         <div
-          className="rounded-2xl p-8 mb-10"
+          className="rounded-2xl p-0 mb-8"
           style={{
-            background: 'rgba(7,12,28,0.55)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'transparent',
+            border: 'none',
+            boxShadow: 'none',
           }}
         >
           <p className="text-sm font-semibold mb-6 uppercase tracking-widest" style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>
@@ -82,19 +115,16 @@ export default function About() {
           </p>
 
           {/* Step selector - horizontal */}
-          <div className="flex flex-wrap gap-0 mb-8 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.07)' }}>
+          <div className="pipeline-container">
             {pipeline.map((p, i) => (
               <button
                 key={i}
                 onClick={() => setActiveStep(i)}
-                className="flex-1 flex items-center justify-center gap-2 py-3.5 px-4 text-sm font-semibold transition-all duration-200 min-w-[120px]"
+                className="pipeline-btn"
                 style={{
-                  background: activeStep === i ? `${p.color}18` : 'transparent',
-                  borderBottom: activeStep === i ? `2px solid ${p.color}` : '2px solid transparent',
-                  color: activeStep === i ? p.color : '#6b7280',
-                  cursor: 'pointer',
-                  border: 'none',
-                  borderBottom: activeStep === i ? `2px solid ${p.color}` : '2px solid transparent',
+                  background: activeStep === i ? `${p.color}15` : 'rgba(255, 255, 255, 0.02)',
+                  borderColor: activeStep === i ? p.color : 'rgba(255, 255, 255, 0.08)',
+                  color: activeStep === i ? p.color : '#9ca3af',
                 }}
               >
                 <p.icon size={15} />
@@ -110,12 +140,12 @@ export default function About() {
               <div className="flex flex-col sm:flex-row items-start gap-6">
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: `${active.color}18`, border: `1px solid ${active.color}30` }}
+                  style={{ background: `${active.color}15`, border: `1px solid ${active.color}30` }}
                 >
                   <active.icon size={24} style={{ color: active.color }} />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold mb-2" style={{ color: '#f9fafb' }}>
+                  <h3 className="text-lg font-bold mb-2" style={{ color: '#f3f4f6' }}>
                     {active.title}
                   </h3>
                   <p className="mb-4" style={{ color: '#9ca3af', fontSize: '0.95rem', lineHeight: 1.7 }}>
@@ -126,7 +156,7 @@ export default function About() {
                       <span
                         key={t}
                         className="px-3 py-1 rounded-full text-xs font-semibold"
-                        style={{ background: `${active.color}15`, color: active.color, border: `1px solid ${active.color}30` }}
+                        style={{ background: `${active.color}15`, color: active.color, border: `1px solid ${active.color}25` }}
                       >
                         {t}
                       </span>
@@ -145,7 +175,7 @@ export default function About() {
               <div
                 className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold"
                 style={{
-                  background: `${p.color}10`,
+                  background: `${p.color}12`,
                   border: `1px solid ${p.color}25`,
                   color: p.color,
                 }}
@@ -154,7 +184,7 @@ export default function About() {
                 {p.step}
               </div>
               {i < pipeline.length - 1 && (
-                <ChevronRight size={16} style={{ color: '#374151' }} />
+                <ChevronRight size={16} style={{ color: 'rgba(255, 255, 255, 0.1)' }} />
               )}
             </React.Fragment>
           ))}
@@ -165,10 +195,10 @@ export default function About() {
           className="rounded-2xl p-6"
           style={{
             background: 'rgba(139, 92, 246, 0.05)',
-            border: '1px solid rgba(139, 92, 246, 0.15)',
+            border: '1px solid rgba(139, 92, 246, 0.18)',
           }}
         >
-          <p className="text-sm font-semibold mb-4 uppercase tracking-widest" style={{ color: '#8b5cf6', fontFamily: 'JetBrains Mono, monospace' }}>
+          <p className="text-sm font-semibold mb-4 uppercase tracking-widest" style={{ color: '#a78bfa', fontFamily: 'JetBrains Mono, monospace' }}>
             Generative AI Technologies
           </p>
           <div className="flex flex-wrap gap-2">
@@ -179,6 +209,7 @@ export default function About() {
                 style={{
                   borderColor: 'rgba(139, 92, 246, 0.2)',
                   color: '#a78bfa',
+                  background: 'rgba(139, 92, 246, 0.08)',
                 }}
               >
                 {tech}

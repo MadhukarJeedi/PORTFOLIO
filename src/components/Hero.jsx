@@ -3,8 +3,8 @@ import { Download, Mail, ChevronRight, MapPin, Phone } from 'lucide-react';
 import { profile } from '../data/profile';
 import { socialLinksArray } from '../data/socialLinks';
 
-// Single source of truth for background — matches profile image dark corners
-const BG = '#04080F';
+// Single source of truth for background — matches profile image corners
+const BG = '#030712';
 
 // ─── Social icons ─────────────────────────────────────────────────────────────
 function LinkedInIcon({ size = 16 }) {
@@ -42,13 +42,13 @@ function NeuralCanvas() {
     siz(); ini(); window.addEventListener('resize',()=>{siz();ini();});
     const dr = () => {
       ctx.clearRect(0,0,W,H);
-      for(let i=0;i<ns.length;i++) for(let j=i+1;j<ns.length;j++){const d=Math.hypot(ns[j].x-ns[i].x,ns[j].y-ns[i].y);if(d<D){ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.strokeStyle=`rgba(59,130,246,${(1-d/D)*.07})`;ctx.lineWidth=.5;ctx.stroke();}}
-      ns.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(96,165,250,.18)';ctx.fill();n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+      for(let i=0;i<ns.length;i++) for(let j=i+1;j<ns.length;j++){const d=Math.hypot(ns[j].x-ns[i].x,ns[j].y-ns[i].y);if(d<D){ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.strokeStyle=`rgba(99,102,241,${(1-d/D)*.08})`;ctx.lineWidth=.5;ctx.stroke();}}
+      ns.forEach(n=>{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(99,102,241,.15)';ctx.fill();n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
       id=requestAnimationFrame(dr);
     };
     dr(); return ()=>cancelAnimationFrame(id);
   },[]);
-  return <canvas ref={ref} style={{position:'absolute',inset:0,width:'100%',height:'100%',opacity:.28,pointerEvents:'none'}} aria-hidden="true"/>;
+  return <canvas ref={ref} style={{position:'absolute',inset:0,width:'100%',height:'100%',opacity:.35,pointerEvents:'none'}} aria-hidden="true"/>;
 }
 
 export default function Hero() {
@@ -61,58 +61,81 @@ export default function Hero() {
         position: 'relative',
         background: BG,
         minHeight: '100vh',
-        overflowX: 'hidden',  // prevent horizontal scrollbar, but allow vertical
+        overflowX: 'hidden',
       }}
     >
-      {/* ── Ambient blue/purple orb ── */}
+      {/* ── Ambient blue/purple glow behind everything ── */}
       <div aria-hidden="true" style={{
         position:'absolute', inset:0, pointerEvents:'none',
-        background:`radial-gradient(ellipse 70% 85% at 72% 42%, rgba(29,78,216,0.22) 0%, rgba(109,40,217,0.10) 52%, transparent 74%)`,
+        background:`radial-gradient(ellipse 70% 85% at 75% 45%, rgba(99,102,241,0.08) 0%, rgba(59,130,246,0.04) 52%, transparent 74%)`,
       }}/>
       <div aria-hidden="true" style={{
         position:'absolute', top:'10%', left:0, width:420, height:580, pointerEvents:'none',
-        background:`radial-gradient(ellipse, rgba(29,78,216,0.07) 0%, transparent 70%)`,
+        background:`radial-gradient(ellipse, rgba(99,102,241,0.04) 0%, transparent 70%)`,
       }}/>
       <NeuralCanvas/>
 
-      {/*
-        ════════════════════════════════════════════════════════
-        CSS GRID HERO CONTAINER
-        ─────────────────────────────────────────────────────
-        • max-width: 1500px, width: 94%  → safe margins each side
-        • margin: 0 auto                 → always centered
-        • grid-template-columns: 1fr 1.1fr → ~48% / 52%
-        • gap: controlled                → no huge empty space
-        • This is a grid item wrapper, sits above the background layers
-        ════════════════════════════════════════════════════════
-      */}
-      {/* Responsive grid: 2 cols on ≥768px, 1 col on mobile */}
       <style>{`
         .hero-grid {
           position: relative;
           z-index: 10;
-          max-width: 1500px;
-          width: 94%;
+          max-width: 1400px;
+          width: 92%;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: 1fr 1.15fr;
+          grid-template-columns: 1.15fr 0.85fr;
           align-items: center;
-          gap: clamp(16px, 2.5vw, 48px);
+          gap: clamp(16px, 2.5vw, 40px);
           min-height: 100vh;
           padding-top: clamp(88px, 10vh, 110px);
-          padding-top: clamp(88px, 10vh, 110px);
           padding-bottom: clamp(40px, 5vh, 72px);
+        }
+        .hero-img-col {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-left: -70px;
+        }
+        .hero-overlay-left {
+          position: absolute; top: 0; left: 0; bottom: 0; width: 16%; z-index: 4; pointer-events: none;
+          background: linear-gradient(to right, ${BG} 0%, rgba(3,7,18,0.95) 15%, rgba(3,7,18,0.4) 55%, transparent 100%);
+        }
+        .hero-overlay-top {
+          position: absolute; top: 0; left: 0; right: 0; height: 14%; z-index: 4; pointer-events: none;
+          background: linear-gradient(to bottom, ${BG} 0%, rgba(3,7,18,0.95) 15%, rgba(3,7,18,0.4) 55%, transparent 100%);
+        }
+        .hero-overlay-bottom {
+          position: absolute; bottom: 0; left: 0; right: 0; height: 16%; z-index: 4; pointer-events: none;
+          background: linear-gradient(to top, ${BG} 0%, rgba(3,7,18,0.95) 15%, rgba(3,7,18,0.4) 55%, transparent 100%);
+        }
+        .hero-overlay-right {
+          position: absolute; top: 0; right: 0; bottom: 0; width: 14%; z-index: 4; pointer-events: none;
+          background: linear-gradient(to left, ${BG} 0%, rgba(3,7,18,0.95) 15%, rgba(3,7,18,0.4) 55%, transparent 100%);
+        }
+        @media (max-width: 1024px) {
+          .hero-img-col {
+            margin-left: -20px;
+          }
         }
         @media (max-width: 767px) {
           .hero-grid {
             grid-template-columns: 1fr;
             min-height: unset;
-            padding-top: clamp(88px, 12vh, 110px);
+            padding-top: clamp(80px, 10vh, 100px);
             padding-bottom: clamp(32px, 5vh, 56px);
+            gap: 24px;
           }
           .hero-img-col {
             order: -1;
+            justify-content: center;
+            margin-left: 0;
+            margin-bottom: 24px;
           }
+          .hero-overlay-left { width: 12%; }
+          .hero-overlay-top { height: 10%; }
+          .hero-overlay-bottom { height: 10%; }
+          .hero-overlay-right { width: 12%; }
         }
       `}</style>
       <div className="hero-grid">
@@ -128,7 +151,7 @@ export default function Hero() {
               letterSpacing: '0.28em',
               textTransform: 'uppercase',
               color: '#60a5fa',
-              opacity: 0.85,
+              opacity: 0.9,
             }}>
               Hello, I’m
             </span>
@@ -142,40 +165,40 @@ export default function Hero() {
             fontSize: 'clamp(3rem, 6.5vw, 5.8rem)',
             margin: '0 0 18px',
           }}>
-            <span style={{ display:'block', color:'#ffffff', textShadow:'0 0 60px rgba(59,130,246,0.18)' }}>Jeedi</span>
+            <span style={{ display:'block', color:'#f3f4f6' }}>Jeedi</span>
             <span style={{
               display: 'block',
-              background: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 48%, #a78bfa 100%)',
+              background: 'linear-gradient(135deg, #60a5fa 0%, #8b5cf6 50%, #c4b5fd 100%)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              filter: 'drop-shadow(0 0 20px rgba(99,102,241,0.30))',
+              filter: 'drop-shadow(0 2px 10px rgba(139,92,246,0.15))',
             }}>Madhukar</span>
           </h1>
 
-          {/* Subtitle — single clean line (reference style) */}
+          {/* Subtitle */}
           <p style={{
             fontSize: 'clamp(1rem, 2vw, 1.2rem)',
             fontWeight: 600,
-            color: '#94a3b8',
+            color: '#e5e7eb',
             letterSpacing: '0.01em',
             margin: '0 0 16px',
           }}>
             AI/ML Engineer &amp; Data Science Specialist
           </p>
 
-          {/* Availability badge — moved below subtitle for cleaner flow */}
+          {/* Availability badge */}
           <div style={{ marginBottom: 20 }}>
             <span style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '5px 14px', borderRadius: 9999, fontSize: '0.7rem', fontWeight: 600,
-              background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)', color: '#34d399',
+              background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.25)', color: '#60a5fa',
             }}>
-              <span aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#10b981', display:'inline-block', boxShadow:'0 0 8px #10b981', animation:'pulse-dot 2.2s ease-in-out infinite' }}/>
+              <span aria-hidden="true" style={{ width:6, height:6, borderRadius:'50%', background:'#3b82f6', display:'inline-block', boxShadow:'0 0 8px #3b82f6', animation:'pulse-dot 2.2s ease-in-out infinite' }}/>
               {profile.availabilityBadge}
             </span>
           </div>
 
           {/* Bio */}
-          <p style={{ color:'#8090aa', fontSize:'0.94rem', lineHeight:1.78, margin:'0 0 28px', maxWidth:460 }}>
+          <p style={{ color:'#9ca3af', fontSize:'0.94rem', lineHeight:1.78, margin:'0 0 28px', maxWidth:460 }}>
             {profile.bio}
           </p>
 
@@ -183,22 +206,22 @@ export default function Hero() {
           <div style={{display:'flex',flexWrap:'wrap',gap:12,marginBottom:28}}>
             <button
               onClick={()=>scrollTo('#projects')}
-              style={{display:'inline-flex',alignItems:'center',gap:8,padding:'12px 24px',borderRadius:12,fontSize:'0.875rem',fontWeight:700,border:'none',cursor:'pointer',background:'linear-gradient(135deg,#2563eb,#1d4ed8)',color:'#fff',boxShadow:'0 4px 20px rgba(37,99,235,0.40)',transition:'all 0.2s'}}
-              onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow='0 8px 28px rgba(37,99,235,0.55)';}}
-              onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='0 4px 20px rgba(37,99,235,0.40)';}}>
+              style={{display:'inline-flex',alignItems:'center',gap:8,padding:'12px 24px',borderRadius:12,fontSize:'0.875rem',fontWeight:700,border:'none',cursor:'pointer',background:'linear-gradient(135deg,#3b82f6,#2563eb)',color:'#fff',boxShadow:'0 4px 20px rgba(59,130,246,0.25)',transition:'all 0.2s'}}
+              onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow='0 8px 28px rgba(59,130,246,0.40)';}}
+              onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='0 4px 20px rgba(59,130,246,0.25)';}}>
               View Projects <ChevronRight size={15}/>
             </button>
-            <a href={profile.resumeUrl} download
-              style={{display:'inline-flex',alignItems:'center',gap:8,padding:'12px 20px',borderRadius:12,fontSize:'0.875rem',fontWeight:600,textDecoration:'none',background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.11)',color:'#dde5f5',transition:'all 0.2s'}}
-              onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,0.09)';e.currentTarget.style.transform='translateY(-2px)';}}
-              onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.05)';e.currentTarget.style.transform='none';}}>
+            <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"
+              style={{display:'inline-flex',alignItems:'center',gap:8,padding:'12px 20px',borderRadius:12,fontSize:'0.875rem',fontWeight:600,textDecoration:'none',background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)',color:'#e5e7eb',transition:'all 0.2s'}}
+              onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,0.06)';e.currentTarget.style.transform='translateY(-2px)';}}
+              onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.03)';e.currentTarget.style.transform='none';}}>
               <Download size={15}/> Download Resume
             </a>
             <button
               onClick={()=>scrollTo('#contact')}
-              style={{display:'inline-flex',alignItems:'center',gap:8,padding:'12px 20px',borderRadius:12,fontSize:'0.875rem',fontWeight:600,border:'1px solid rgba(255,255,255,0.11)',cursor:'pointer',background:'rgba(255,255,255,0.05)',color:'#dde5f5',transition:'all 0.2s'}}
-              onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,0.09)';e.currentTarget.style.transform='translateY(-2px)';}}
-              onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.05)';e.currentTarget.style.transform='none';}}>
+              style={{display:'inline-flex',alignItems:'center',gap:8,padding:'12px 20px',borderRadius:12,fontSize:'0.875rem',fontWeight:600,border:'1px solid rgba(255,255,255,0.08)',cursor:'pointer',background:'rgba(255,255,255,0.03)',color:'#e5e7eb',transition:'all 0.2s'}}
+              onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,0.06)';e.currentTarget.style.transform='translateY(-2px)';}}
+              onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,0.03)';e.currentTarget.style.transform='none';}}>
               <Mail size={15}/> Contact Me
             </button>
           </div>
@@ -207,11 +230,11 @@ export default function Hero() {
           <div style={{display:'flex',flexWrap:'wrap',gap:10,marginBottom:20}}>
             {socialLinksArray.map(link=>{
               const Icon=iconMap[link.label];
-              return(
+              return (
                 <a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.ariaLabel}
-                  style={{display:'inline-flex',alignItems:'center',gap:8,padding:'8px 12px',borderRadius:8,fontSize:'0.75rem',fontWeight:500,textDecoration:'none',background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.09)',color:'#5f7a9e',transition:'all 0.2s'}}
-                  onMouseEnter={e=>{e.currentTarget.style.color=link.color;e.currentTarget.style.background=`${link.color}12`;e.currentTarget.style.border=`1px solid ${link.color}40`;}}
-                  onMouseLeave={e=>{e.currentTarget.style.color='#5f7a9e';e.currentTarget.style.background='rgba(255,255,255,0.04)';e.currentTarget.style.border='1px solid rgba(255,255,255,0.09)';}}>
+                  style={{display:'inline-flex',alignItems:'center',gap:8,padding:'8px 12px',borderRadius:8,fontSize:'0.75rem',fontWeight:500,textDecoration:'none',background:'rgba(255,255,255,0.03)',border:'1px solid rgba(255,255,255,0.08)',color:'#9ca3af',transition:'all 0.2s'}}
+                  onMouseEnter={e=>{e.currentTarget.style.color=link.color;e.currentTarget.style.background=`${link.color}15`;e.currentTarget.style.border=`1px solid ${link.color}35`;}}
+                  onMouseLeave={e=>{e.currentTarget.style.color='#9ca3af';e.currentTarget.style.background='rgba(255,255,255,0.03)';e.currentTarget.style.border='1px solid rgba(255,255,255,0.08)';}}>
                   {Icon&&<Icon size={14}/>}{link.label}
                 </a>
               );
@@ -219,14 +242,14 @@ export default function Hero() {
           </div>
 
           {/* Contact + location */}
-          <div style={{display:'flex',flexWrap:'wrap',alignItems:'center',gap:16,fontSize:'0.74rem',color:'#253448'}}>
+          <div style={{display:'flex',flexWrap:'wrap',alignItems:'center',gap:16,fontSize:'0.74rem',color:'#9ca3af'}}>
             <a href={profile.phoneHref}
-              style={{display:'inline-flex',alignItems:'center',gap:6,textDecoration:'none',color:'#253448',transition:'color 0.2s'}}
+              style={{display:'inline-flex',alignItems:'center',gap:6,textDecoration:'none',color:'#9ca3af',transition:'color 0.2s'}}
               onMouseEnter={e=>e.currentTarget.style.color='#60a5fa'}
-              onMouseLeave={e=>e.currentTarget.style.color='#253448'}>
+              onMouseLeave={e=>e.currentTarget.style.color='#9ca3af'}>
               <Phone size={11}/>{profile.phone}
             </a>
-            <span style={{color:'#0f1b2e'}}>|</span>
+            <span style={{color:'rgba(255,255,255,0.1)'}}>|</span>
             <span style={{display:'inline-flex',alignItems:'center',gap:6}}><MapPin size={11}/>{profile.location}</span>
           </div>
         </div>
@@ -234,20 +257,12 @@ export default function Hero() {
         {/* ═══════════════════════════════════════
             COLUMN 2 — Profile image
             ═══════════════════════════════════════ */}
-        <div className="hero-img-col" style={{ position:'relative', display:'flex', alignItems:'center', justifyContent:'center' }}>
+        <div className="hero-img-col">
 
-          {/* Image wrapper — transparent bg so no rectangular panel */}
-          <div style={{ position:'relative', width:'100%', maxWidth:640 }}>
+          {/* Image wrapper */}
+          <div style={{ position:'relative', width:'100%', maxWidth:480 }}>
 
-            {/*
-              THE IMAGE
-              ─────────────────────────────────────
-              • width: 100%   → fills grid cell width
-              • height: auto  → FULL natural aspect ratio, ZERO cropping
-              • objectFit is NOT used with natural img (not needed here)
-              • opacity: 1, visibility: visible, zIndex: 3
-              • display: block → no whitespace issues
-            */}
+            {/* The Image */}
             <img
               src={profile.profileImage}
               alt="Jeedi Madhukar - AI/ML Engineer"
@@ -263,54 +278,17 @@ export default function Hero() {
               loading="eager"
             />
 
-            {/*
-              EDGE GRADIENT OVERLAYS
-              ──────────────────────
-              Only the outermost thin strips are faded.
-              The CENTER 65%+ of the image is UNTOUCHED.
-              Person, face, orbital rings, all 6 tech cards remain 100% visible.
-              Each overlay has pointer-events: none so they don't block clicks.
-            */}
+            {/* Fades to blend the image seamlessly into the page background */}
+            <div aria-hidden="true" className="hero-overlay-left" />
+            <div aria-hidden="true" className="hero-overlay-top" />
+            <div aria-hidden="true" className="hero-overlay-bottom" />
+            <div aria-hidden="true" className="hero-overlay-right" />
 
-            {/*
-              EDGE OVERLAYS — only thin outer strips, center untouched.
-              Using BG color so no rectangular seam is visible.
-              Extended widths/heights to fully erase the hard border.
-            */}
-
-            {/* LEFT edge — wider (28%) to fully cover the image's left border + fade into gap */}
-            <div aria-hidden="true" style={{
-              position:'absolute', top:0, left:0, bottom:0, width:'28%',
-              pointerEvents:'none', zIndex:4,
-              background:`linear-gradient(to right, ${BG} 0%, ${BG} 2%, rgba(5,8,23,0.88) 22%, rgba(5,8,23,0.45) 52%, rgba(5,8,23,0.10) 78%, transparent 100%)`,
-            }}/>
-
-            {/* TOP edge (18% height) */}
-            <div aria-hidden="true" style={{
-              position:'absolute', top:0, left:0, right:0, height:'18%',
-              pointerEvents:'none', zIndex:4,
-              background:`linear-gradient(to bottom, ${BG} 0%, ${BG} 2%, rgba(5,8,23,0.82) 30%, rgba(5,8,23,0.30) 60%, transparent 100%)`,
-            }}/>
-
-            {/* BOTTOM edge (20% height — lower body fade) */}
-            <div aria-hidden="true" style={{
-              position:'absolute', bottom:0, left:0, right:0, height:'20%',
-              pointerEvents:'none', zIndex:4,
-              background:`linear-gradient(to top, ${BG} 0%, ${BG} 2%, rgba(5,8,23,0.82) 30%, rgba(5,8,23,0.30) 60%, transparent 100%)`,
-            }}/>
-
-            {/* RIGHT edge — moderate (14%) — image has right-side cards so don't fade too much */}
-            <div aria-hidden="true" style={{
-              position:'absolute', top:0, right:0, bottom:0, width:'14%',
-              pointerEvents:'none', zIndex:4,
-              background:`linear-gradient(to left, ${BG} 0%, ${BG} 2%, rgba(5,8,23,0.65) 30%, rgba(5,8,23,0.20) 60%, transparent 100%)`,
-            }}/>
-
-            {/* Cinematic blue glow — BEHIND the image (zIndex:1) so it doesn't dim subject */}
+            {/* Subtle glow behind the photo */}
             <div aria-hidden="true" style={{
               position:'absolute', top:'5%', left:'5%', right:'5%', bottom:'5%',
               pointerEvents:'none', zIndex:1,
-              background:`radial-gradient(ellipse 65% 70% at 52% 42%, rgba(29,78,216,0.22) 0%, rgba(34,211,238,0.08) 48%, transparent 70%)`,
+              background:`radial-gradient(circle at center, rgba(99,102,241,0.15) 0%, rgba(59,130,246,0.05) 50%, transparent 70%)`,
             }}/>
 
             {/* Available for Hire badge */}
@@ -318,12 +296,12 @@ export default function Hero() {
               position:'absolute', bottom:'7%', left:'50%', transform:'translateX(-50%)',
               display:'flex', alignItems:'center', gap:7,
               padding:'5px 17px', borderRadius:9999,
-              background:'rgba(3,6,14,0.92)', border:'1px solid rgba(16,185,129,0.42)',
-              backdropFilter:'blur(14px)', color:'#34d399', fontSize:'0.68rem',
+              background:'rgba(12,19,34,0.85)', border:'1px solid rgba(59,130,246,0.3)',
+              backdropFilter:'blur(14px)', color:'#60a5fa', fontSize:'0.68rem',
               fontWeight:700, whiteSpace:'nowrap', zIndex:5,
-              boxShadow:'0 0 22px rgba(16,185,129,0.14)',
+              boxShadow:'0 4px 20px rgba(59,130,246,0.15)',
             }}>
-              <span aria-hidden="true" style={{width:7,height:7,borderRadius:'50%',background:'#10b981',display:'inline-block',boxShadow:'0 0 10px #10b981',animation:'pulse-dot 2.2s ease-in-out infinite'}}/>
+              <span aria-hidden="true" style={{width:7,height:7,borderRadius:'50%',background:'#3b82f6',display:'inline-block',boxShadow:'0 0 10px #3b82f6',animation:'pulse-dot 2.2s ease-in-out infinite'}}/>
               Available for Hire
             </div>
 
@@ -331,14 +309,10 @@ export default function Hero() {
         </div>
 
       </div>
-      {/* End grid container */}
-
-      {/* ── Mobile layout override: stack vertically ── */}
-      {/* Handled by CSS below via <style> injected in index.css */}
 
       {/* Scroll indicator */}
-      <div style={{position:'absolute',bottom:24,left:'50%',transform:'translateX(-50%)',opacity:.18,zIndex:10}} aria-hidden="true">
-        <div style={{width:20,height:32,borderRadius:10,border:'1.5px solid rgba(255,255,255,0.18)',display:'flex',alignItems:'flex-start',justifyContent:'center',paddingTop:6}}>
+      <div style={{position:'absolute',bottom:24,left:'50%',transform:'translateX(-50%)',opacity:.25,zIndex:10}} aria-hidden="true">
+        <div style={{width:20,height:32,borderRadius:10,border:'1.5px solid rgba(255,255,255,0.12)',display:'flex',alignItems:'flex-start',justifyContent:'center',paddingTop:6}}>
           <div style={{width:4,height:8,borderRadius:2,background:'#3b82f6',animation:'float 1.6s ease-in-out infinite'}}/>
         </div>
       </div>
