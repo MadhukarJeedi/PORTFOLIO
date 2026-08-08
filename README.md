@@ -1,82 +1,32 @@
-# 🚀 Jeedi Madhukar — AI/ML Engineer Portfolio
+# 🚀 Jeedi Madhukar — AI/ML Engineer & Data Science Specialist Portfolio
 
-A premium, futuristic AI/ML personal-brand portfolio built with **React + Vite**.  
-Live, responsive, and production-ready.
-
----
-
-## 🌐 Live Deployment
-
-### Option 1 — Vercel (Recommended, Free)
-
-1. Push your project to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "initial commit"
-   git remote add origin https://github.com/YOUR_USERNAME/portfolio.git
-   git push -u origin main
-   ```
-
-2. Go to [https://vercel.com](https://vercel.com) → Sign in with GitHub  
-3. Click **"Add New Project"** → Import your repository  
-4. Vercel auto-detects Vite — no config needed  
-5. Click **"Deploy"**  
-6. Your site is live at: `https://your-project.vercel.app`
-
-> **Custom Domain**: In Vercel dashboard → Settings → Domains → Add your domain.
+A premium, recruiter-friendly personal portfolio built using **React, Vite, and Tailwind CSS v4**. Deployed with responsive canvas-based interactive elements, custom project dashboard mockups, and end-to-end contact mechanisms.
 
 ---
 
-### Option 2 — Netlify (Also Free)
+## 🌐 Live Deployment & Projects
 
-1. Push to GitHub (same steps as above)  
-2. Go to [https://app.netlify.com](https://app.netlify.com) → Sign in  
-3. Click **"Add new site"** → **"Import an existing project"**  
-4. Connect GitHub → Select your repo  
-5. Set build settings:
-   - **Build command**: `npm run build`
-   - **Publish directory**: `dist`
-6. Click **"Deploy site"**
+This portfolio displays three live, production-deployed AI/ML applications:
 
-> **Custom Domain**: Site settings → Domain management → Add custom domain.
+1. **Smart Irrigation Need Predictor** (Deployed on Render): ML classification pipeline predicting agricultural watering cycles.
+2. **Job Recommendation System** (Deployed on Streamlit Cloud): Cosine similarity matching tool based on TF-IDF skill indexing.
+3. **AI Travel Planner Agent** (Deployed on Streamlit Cloud + FastAPI Backend on Render): Groq-hosted LLM agent orchestrating live routing, weather, and locations APIs.
 
 ---
 
-### Option 3 — GitHub Pages (Free)
+## 🎨 Premium Dark Theme Design System
 
-1. Install the gh-pages package:
-   ```bash
-   npm install --save-dev gh-pages
-   ```
-
-2. Add to `package.json`:
-   ```json
-   "homepage": "https://YOUR_USERNAME.github.io/portfolio",
-   "scripts": {
-     "predeploy": "npm run build",
-     "deploy": "gh-pages -d dist"
-   }
-   ```
-
-3. Add `base` to `vite.config.js`:
-   ```js
-   export default defineConfig({
-     base: '/portfolio/',
-     plugins: [react()],
-   })
-   ```
-
-4. Deploy:
-   ```bash
-   npm run deploy
-   ```
+- **Background Palette**: Deep dark navy (`#030712`) alternating with midnight blue (`#080e1a`) to establish clear section blocks.
+- **Hero Profile Blending**: The profile picture's boundaries are faded using responsive 4-edge linear gradient overlays that merge with the dark background canvas.
+- **Text & Accent Styling**: High-contrast off-white/light-slate text values matched with selective neon-colored highlights (emerald, blue, and purple) corresponding to distinct technical layers.
+- **Breathing Space Layout**: Enhanced section padding of `py-32 sm:py-36` to provide elegant vertical margins and readability.
+- **Ambient Visuals**: Real-time neural network canvas animation (`requestAnimationFrame`) floating behind the Hero contents.
 
 ---
 
-## ⚙️ Environment Variables (EmailJS)
+## ⚙️ Environment Variables (EmailJS Integration)
 
-The contact form uses EmailJS. Create a `.env` file in the project root:
+The contact form is powered by EmailJS, allowing visitors to send messages directly to your inbox. Set up a `.env` file in the project root folder for local testing:
 
 ```env
 VITE_EMAILJS_SERVICE_ID=your_service_id
@@ -84,23 +34,22 @@ VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-> Add these same variables in Vercel/Netlify dashboard under **Environment Variables**.
-
-Get your keys at [https://www.emailjs.com](https://www.emailjs.com) → Free plan supports 200 emails/month.
+> **EmailJS Deployment Notes**: When deploying to platforms like Vercel, Netlify, or AWS, remember to register these same keys inside the host environment variable configurations.
 
 ---
 
-## 🛠️ Local Development
+## 🛠️ Local Development Setup
+
+To download dependencies, spin up the development socket, or run compiled production outputs locally:
 
 ```bash
 # Install dependencies
 npm install
 
-# Start dev server
+# Start Vite dev server (runs at http://localhost:5173/)
 npm run dev
-# → http://localhost:5173
 
-# Build for production
+# Compile production assets
 npm run build
 
 # Preview production build locally
@@ -109,83 +58,57 @@ npm run preview
 
 ---
 
-## 🎨 Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | React 18 + Vite |
-| Styling | Tailwind CSS v4 + Vanilla CSS |
-| Animations | CSS keyframes, Canvas neural network |
-| Contact Form | EmailJS |
-| Icons | Lucide React |
-| Fonts | Inter, JetBrains Mono |
-| Deployment | Vercel / Netlify / GitHub Pages |
-
----
-
-## 🎯 Design System
-
-- **Background**: Near-black `#04080F` — matched to profile image dark corners
-- **Accent Blue**: `#3b82f6` → `#6366f1` → `#a78bfa` gradient
-- **Accent Cyan**: `#34d399` (availability badge, orbital glow)
-- **Hero Layout**: CSS Grid — `1fr 1.15fr` columns (text | image)
-- **Image Blending**: 4-direction gradient overlays (no mask-image)
-- **Responsive**: 2-col desktop → stacked mobile
-
----
-
 ## 📁 Project Structure
 
 ```
-src/
-├── components/
-│   ├── Hero.jsx           # Hero with HELLO I'M greeting + profile image
-│   ├── Navbar.jsx         # Fixed top navigation
-│   ├── About.jsx          # ML workflow pipeline + tech overview
-│   ├── Skills.jsx         # Full technical expertise grid
-│   ├── Projects.jsx       # 3 live AI/ML project cards
-│   ├── Education.jsx      # Academic timeline
-│   ├── Certifications.jsx # Grouped certification cards
-│   ├── Contact.jsx        # EmailJS contact form
-│   └── Footer.jsx         # Footer with links
-├── data/
-│   ├── profile.js         # Name, bio, image URL, resume link
-│   └── socialLinks.js     # LinkedIn, GitHub, Kaggle links
-├── index.css              # Design tokens + all CSS animations
-└── App.jsx                # Root component + section order
-public/
-└── assets/                # Profile image + resume PDF
+Portfolio/
+├── public/
+│   ├── images/
+│   │   ├── profile.jpg          # Profile photo asset
+│   │   └── projects/            # Project mockup screens
+│   │       ├── smart_irrigation.png
+│   │       ├── job_recommendation.png
+│   │       └── travel_planner.png
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx           # Fixed-position header glass panel
+│   │   ├── Hero.jsx             # Intro greeting, photo, canvas loops, and location badges
+│   │   ├── About.jsx            # ML pipeline step-by-step detailing + GenAI chips
+│   │   ├── Skills.jsx           # Technical filter grid layout
+│   │   ├── Projects.jsx         # Live deployed project cards with scale transitions
+│   │   ├── ProjectModal.jsx     # Project detail overlay popup
+│   │   ├── Education.jsx        # Academic node timeline
+│   │   ├── Certifications.jsx  # AWS, Deeplearning.AI credentials cards
+│   │   ├── ResumeCTA.jsx        # Pre-footer call-to-action
+│   │   ├── Contact.jsx          # Sleek inputs and EmailJS form
+│   │   └── Footer.jsx           # Anchor links and copyright footer
+│   ├── data/
+│   │   ├── certifications.js    # Verified course URLs and credentials
+│   │   ├── profile.js           # Single-truth bio, phone, and resume links
+│   │   ├── projects.js          # Project features, approaches, and tech stacks
+│   │   └── socialLinks.js       # GitHub, LinkedIn, and Kaggle URLs
+│   ├── index.css                # Global Tailwind directives and animation classes
+│   ├── main.jsx                 # Vite mounting file
+│   └── App.jsx                  # Main page section ordering
+├── package.json                 # Node modules manifest
+└── vite.config.js               # React/Vite compilation presets
 ```
 
 ---
 
-## 📄 Sections
+## 🔧 Personal Customization Guide
 
-| # | Section | Description |
-|---|---|---|
-| 1 | **Hero** | `HELLO, I'M` greeting, name, subtitle, profile image, CTAs |
-| 2 | **About** | ML workflow pipeline, Generative AI technologies |
-| 3 | **Skills** | 8-category technical expertise grid |
-| 4 | **Projects** | Smart Irrigation, Job Recommender, AI Travel Planner |
-| 5 | **Education** | Academic background timeline |
-| 6 | **Certifications** | AWS, Google, Microsoft, DeepLearning.AI grouped cards |
-| 7 | **Contact** | EmailJS contact form + social links |
+You can customize the text, links, and certifications inside `src/data/`:
 
----
-
-## 🔧 Customization
-
-To update your personal info, edit only these files:
-
-| File | What to change |
+| Data File | Update Instructions |
 |---|---|
-| `src/data/profile.js` | Name, bio, phone, location, image, resume URL |
-| `src/data/socialLinks.js` | LinkedIn, GitHub, Kaggle URLs |
-| `src/components/Projects.jsx` | Project titles, descriptions, live links |
-| `src/components/Certifications.jsx` | Certification names and links |
+| [`profile.js`](file:///c:/Madhu/Portfolio/src/data/profile.js) | Adjust name, bio, location details, phone, and Google Drive resume link. |
+| [`projects.js`](file:///c:/Madhu/Portfolio/src/data/projects.js) | Configure titles, taglines, project steps, approaches, and API descriptions. |
+| [`certifications.js`](file:///c:/Madhu/Portfolio/src/data/certifications.js) | Register or update verified credentials, issuers, and direct links. |
+| [`socialLinks.js`](file:///c:/Madhu/Portfolio/src/data/socialLinks.js) | Put your custom GitHub, LinkedIn, or Kaggle URLs. |
 
 ---
 
 ## 📝 License
 
-Personal portfolio — all rights reserved © Jeedi Madhukar 2025
+Personal brand portfolio — all rights reserved © Jeedi Madhukar 2026
