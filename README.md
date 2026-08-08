@@ -1,4 +1,5 @@
-# 🚀 Jeedi Madhukar — AI/ML Engineer & Data Science Specialist Portfolio
+# 🚀 Jeedi Madhukar — AI/ML Engineer & Data Science Aspirant Portfolio
+## Check in live: https://madhuportfolio-rouge.vercel.app/
 
 A premium, recruiter-friendly personal portfolio built using **React, Vite, and Tailwind CSS v4**. Deployed with responsive canvas-based interactive elements, custom project dashboard mockups, and end-to-end contact mechanisms.
 
