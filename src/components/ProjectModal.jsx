@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ExternalLink, ChevronRight, Cpu, Layers, Globe, Lightbulb, ArrowRight } from 'lucide-react';
+import { X, ExternalLink, Cpu, Layers, Globe, Lightbulb, ArrowRight } from 'lucide-react';
 
 const getDarkAccentText = (colorName) => {
   if (colorName === 'emerald') return '#34d399';
@@ -14,33 +14,10 @@ export default function ProjectModal({ project, onClose }) {
   const accentColor = project.accentHex;
   const textColor = getDarkAccentText(project.accentColor);
 
-  const sections = [
-    {
-      id: 'overview',
-      label: '01 Overview',
-      icon: Globe,
-    },
-    {
-      id: 'problem',
-      label: '02 Problem',
-      icon: Lightbulb,
-    },
-    {
-      id: 'solution',
-      label: '03 Solution',
-      icon: Cpu,
-    },
-    {
-      id: 'architecture',
-      label: '04 Architecture',
-      icon: Layers,
-    },
-  ];
-
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
-        className="w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl"
+        className="w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-none"
         style={{
           background: '#0c1322',
           border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -60,7 +37,7 @@ export default function ProjectModal({ project, onClose }) {
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span
-                className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
+                className="px-3 py-1 rounded-none text-xs font-bold uppercase tracking-widest"
                 style={{
                   background: project.accentBg,
                   border: `1px solid ${project.accentBorder}`,
@@ -71,7 +48,7 @@ export default function ProjectModal({ project, onClose }) {
                 {project.category}
               </span>
               {project.tags.map(t => (
-                <span key={t} className="px-2 py-0.5 rounded text-xs" style={{ color: '#6b7280', background: 'rgba(255,255,255,0.04)' }}>
+                <span key={t} className="px-2 py-0.5 rounded-none text-xs" style={{ color: '#6b7280', background: 'rgba(255,255,255,0.04)' }}>
                   {t}
                 </span>
               ))}
@@ -80,7 +57,7 @@ export default function ProjectModal({ project, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-200"
+            className="flex-shrink-0 w-9 h-9 rounded-none flex items-center justify-center transition-colors duration-200"
             style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#9ca3af', cursor: 'pointer' }}
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#fff'; }}
             onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#9ca3af'; }}
@@ -95,7 +72,7 @@ export default function ProjectModal({ project, onClose }) {
           {/* Project Image Mockup */}
           {project.image && (
             <div
-              className="relative overflow-hidden rounded-xl aspect-[16/9] border"
+              className="relative overflow-hidden rounded-none aspect-[16/9] border"
               style={{ borderColor: 'rgba(255, 255, 255, 0.08)', background: '#070c1c' }}
             >
               <img
@@ -113,12 +90,12 @@ export default function ProjectModal({ project, onClose }) {
             <p style={{ color: '#9ca3af', lineHeight: 1.75, fontSize: '0.95rem' }}>{project.description}</p>
             <div className="flex items-center gap-2 mt-3">
               <span className="text-xs font-semibold" style={{ color: '#6b7280' }}>Deployed on:</span>
-              <span className="px-2 py-0.5 rounded text-xs font-semibold" style={{ background: project.accentBg, color: textColor, border: `1px solid ${project.accentBorder}` }}>
+              <span className="px-2 py-0.5 rounded-none text-xs font-semibold" style={{ background: project.accentBg, color: textColor, border: `1px solid ${project.accentBorder}` }}>
                 {project.platform}
               </span>
             </div>
             {project.metric && (
-              <div className="inline-flex items-center gap-3 mt-4 px-5 py-3 rounded-xl" style={{ background: `${accentColor}12`, border: `1px solid ${accentColor}25` }}>
+              <div className="inline-flex items-center gap-3 mt-4 px-5 py-3 rounded-none" style={{ background: `${accentColor}12`, border: `1px solid ${accentColor}25` }}>
                 <span className="text-2xl font-black" style={{ color: textColor }}>{project.metric.value}</span>
                 <span className="text-sm font-medium" style={{ color: '#9ca3af' }}>{project.metric.label}</span>
               </div>
@@ -145,7 +122,7 @@ export default function ProjectModal({ project, onClose }) {
                 <div key={i} className="flex items-start gap-3">
                   <div className="flex flex-col items-center flex-shrink-0">
                     <div
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
+                      className="w-7 h-7 rounded-none flex items-center justify-center text-xs font-bold"
                       style={{ background: project.accentBg, color: textColor, border: `1px solid ${project.accentBorder}` }}
                     >
                       {i + 1}
@@ -172,7 +149,7 @@ export default function ProjectModal({ project, onClose }) {
                   {project.externalApis.map(api => (
                     <div
                       key={api.name}
-                      className="px-3 py-2 rounded-lg"
+                      className="px-3 py-2 rounded-none"
                       style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
                     >
                       <p className="text-sm font-semibold" style={{ color: '#e5e7eb' }}>{api.name}</p>
@@ -220,7 +197,7 @@ export default function ProjectModal({ project, onClose }) {
               {project.learnings.map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-2.5 p-3 rounded-lg text-sm"
+                  className="flex items-start gap-2.5 p-3 rounded-none text-sm"
                   style={{
                     background: `${accentColor}08`,
                     border: `1px solid ${accentColor}15`,
@@ -243,7 +220,7 @@ export default function ProjectModal({ project, onClose }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 no-underline"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-none font-bold text-sm transition-all duration-200 no-underline"
               style={{
                 background: `linear-gradient(135deg, ${accentColor}, ${accentColor}cc)`,
                 color: '#fff',
@@ -271,8 +248,8 @@ export default function ProjectModal({ project, onClose }) {
 function SectionLabel({ label, color }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <div className="w-1 h-5 rounded-full" style={{ background: color }} />
-      <h3 className="font-bold text-base" style={{ color: '#0f172a' }}>{label}</h3>
+      <div className="w-1 h-5 rounded-none" style={{ background: color }} />
+      <h3 className="font-bold text-base" style={{ color: '#f3f4f6' }}>{label}</h3>
     </div>
   );
 }

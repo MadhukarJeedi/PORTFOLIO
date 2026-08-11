@@ -1,62 +1,20 @@
-#            MADHUKAR JEEDI 
-## AI/ML Engineer & Data Science Aspirant Portfolio
+# ⚡ MADHUKAR JEEDI — Professional AI/ML & Data Science Portfolio
 ## Check in live: https://madhuportfolio-rouge.vercel.app/
 
-A premium, recruiter-friendly personal portfolio built using **React, Vite, and Tailwind CSS v4**. Deployed with responsive canvas-based interactive elements, custom project dashboard mockups, and end-to-end contact mechanisms.
+A premium, recruiter-ready personal portfolio styled after a custom bold, high-contrast, blocky geometric design system. Built with **React, Vite, Tailwind CSS**, and **Framer Motion** for interactive animations.
 
 ---
 
-## 🌐 Live Deployment & Projects
+## 🎨 Design System & Highlights
 
-This portfolio displays three live, production-deployed AI/ML applications:
-
-1. **Smart Irrigation Need Predictor** (Deployed on Render): ML classification pipeline predicting agricultural watering cycles.
-2. **Job Recommendation System** (Deployed on Streamlit Cloud): Cosine similarity matching tool based on TF-IDF skill indexing.
-3. **AI Travel Planner Agent** (Deployed on Streamlit Cloud + FastAPI Backend on Render): Groq-hosted LLM agent orchestrating live routing, weather, and locations APIs.
-
----
-
-## 🎨 Premium Dark Theme Design System
-
-- **Background Palette**: Deep dark navy (`#030712`) alternating with midnight blue (`#080e1a`) to establish clear section blocks.
-- **Hero Profile Blending**: The profile picture's boundaries are faded using responsive 4-edge linear gradient overlays that merge with the dark background canvas.
-- **Text & Accent Styling**: High-contrast off-white/light-slate text values matched with selective neon-colored highlights (emerald, blue, and purple) corresponding to distinct technical layers.
-- **Breathing Space Layout**: Enhanced section padding of `py-32 sm:py-36` to provide elegant vertical margins and readability.
-- **Ambient Visuals**: Real-time neural network canvas animation (`requestAnimationFrame`) floating behind the Hero contents.
-
----
-
-## ⚙️ Environment Variables (EmailJS Integration)
-
-The contact form is powered by EmailJS, allowing visitors to send messages directly to your inbox. Set up a `.env` file in the project root folder for local testing:
-
-```env
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
-```
-
-> **EmailJS Deployment Notes**: When deploying to platforms like Vercel, Netlify, or AWS, remember to register these same keys inside the host environment variable configurations.
-
----
-
-## 🛠️ Local Development Setup
-
-To download dependencies, spin up the development socket, or run compiled production outputs locally:
-
-```bash
-# Install dependencies
-npm install
-
-# Start Vite dev server (runs at http://localhost:5173/)
-npm run dev
-
-# Compile production assets
-npm run build
-
-# Preview production build locally
-npm run preview
-```
+- **Vibrant Accent Palette**: High-contrast Yellow-Orange (`#F2B822`), Deep Charcoal (`#1C1C1C`), and Light-Grey (`#E5E5E5`) backing.
+- **Split Screen Sidebar Layout**: Left fixed fixed sidebar (`Sidebar.jsx`) with custom portrait positioning (`12%` top crop to fully show hair/face), desktop scroll buttons, and mobile drawer.
+- **Tactile 3D Buttons**: Prominent pill-shaped (`rounded-full`) action buttons with custom 3D bottom borders (`border-b-4`) that compress on press/click (`active:translate-y-[4px] active:border-b-0`).
+- **Comprehensive Skills Grid**: Reorganized About Me slide showing your official resume Professional Summary, followed by a grid of **28 individual technical skills** structured as square capsule pills `[ Icon | Skill Name ]`.
+- **Horizontal Project Cards**: Spatially expanded horizontal rows on desktop showing exact resume bullet points formatted with solid circular yellow dot points (`●`).
+- **Clean Education Cards**: Center-aligned single-column timeline of academic milestones, free of distracting lines and circles.
+- **Interactive Certifications**: Accordion cards (IBM, Kaggle, Cisco, HackerRank, NCVT) that slide open/closed smoothly using Framer Motion animations.
+- **Enlarged Contact Form**: Sized up input fields, message area (`rows={8}`), and send buttons for easy touch and typing accessibility.
 
 ---
 
@@ -66,51 +24,78 @@ npm run preview
 Portfolio/
 ├── public/
 │   ├── images/
-│   │   ├── profile.jpg          # Profile photo asset
+│   │   ├── profile.jpg          # Profile photo asset (12% vertical alignment offset)
 │   │   └── projects/            # Project mockup screens
 │   │       ├── smart_irrigation.png
 │   │       ├── job_recommendation.png
 │   │       └── travel_planner.png
 ├── src/
 │   ├── components/
-│   │   ├── Navbar.jsx           # Fixed-position header glass panel
-│   │   ├── Hero.jsx             # Intro greeting, photo, canvas loops, and location badges
-│   │   ├── About.jsx            # ML pipeline step-by-step detailing + GenAI chips
-│   │   ├── Skills.jsx           # Technical filter grid layout
-│   │   ├── Projects.jsx         # Live deployed project cards with scale transitions
-│   │   ├── ProjectModal.jsx     # Project detail overlay popup
-│   │   ├── Education.jsx        # Academic node timeline
-│   │   ├── Certifications.jsx  # AWS, Deeplearning.AI credentials cards
-│   │   ├── ResumeCTA.jsx        # Pre-footer call-to-action
-│   │   ├── Contact.jsx          # Sleek inputs and EmailJS form
-│   │   └── Footer.jsx           # Anchor links and copyright footer
+│   │   ├── Sidebar.jsx          # Fixed yellow fixed sidebar with mobile support
+│   │   ├── RightNavigation.jsx  # Floating dot navigation timeline spy
+│   │   ├── Hero.jsx             # Intro greeting, bold headings, and 3D buttons
+│   │   ├── About.jsx            # Biography summary + 28 custom skill capsule pills
+│   │   ├── Resume.jsx           # Clean centered single-column Education cards
+│   │   ├── Projects.jsx         # 1-column large projects cards with custom yellow bullets
+│   │   ├── ProjectModal.jsx     # Detail overlay popup modal
+│   │   ├── Certifications.jsx  # Interactive accordion cards (Framer Motion)
+│   │   ├── Contact.jsx          # Sized up form inputs and EmailJS integration
+│   │   └── LinkedInIcon.jsx     # Inline SVG icon helpers
 │   ├── data/
-│   │   ├── certifications.js    # Verified course URLs and credentials
-│   │   ├── profile.js           # Single-truth bio, phone, and resume links
-│   │   ├── projects.js          # Project features, approaches, and tech stacks
-│   │   └── socialLinks.js       # GitHub, LinkedIn, and Kaggle URLs
-│   ├── index.css                # Global Tailwind directives and animation classes
-│   ├── main.jsx                 # Vite mounting file
-│   └── App.jsx                  # Main page section ordering
-├── package.json                 # Node modules manifest
-└── vite.config.js               # React/Vite compilation presets
+│   │   ├── certifications.js    # Verified credentials & Drive links
+│   │   ├── profile.js           # Single source of truth for phone, email, and bio
+│   │   ├── projects.js          # Detailed descriptions and specs
+│   └── index.css                # Global styles, scrollspy margin offsets, and 3D animations
+```
+
+---
+
+## ⚙️ Environment Variables (EmailJS Integration)
+
+The contact form is pre-configured with EmailJS, letting visitors email you directly. Create a `.env` file in the project root:
+
+```env
+VITE_EMAILJS_SERVICE_ID=service_f2g41zb
+VITE_EMAILJS_TEMPLATE_ID=template_9bft3w4
+VITE_EMAILJS_PUBLIC_KEY=cLb0MmUH4g4Odr1Ak
+```
+
+*Note: For production hosts (like Render, Vercel, Netlify), add these same keys inside the hosting panel environment variables.*
+
+---
+
+## 🛠️ Local Development Setup
+
+To run or build the portfolio on your local machine:
+
+```bash
+# Install dependencies
+npm install
+
+# Start Vite dev server (runs at http://localhost:5173/)
+npm run dev
+
+# Compile optimized production assets
+npm run build
+
+# Preview the built production assets locally
+npm run preview
 ```
 
 ---
 
 ## 🔧 Personal Customization Guide
 
-You can customize the text, links, and certifications inside `src/data/`:
+Update your details, links, and projects inside `src/data/`:
 
-| Data File | Update Instructions |
+| Data File | Instructions |
 |---|---|
-| [`profile.js`](file:///c:/Madhu/Portfolio/src/data/profile.js) | Adjust name, bio, location details, phone, and Google Drive resume link. |
-| [`projects.js`](file:///c:/Madhu/Portfolio/src/data/projects.js) | Configure titles, taglines, project steps, approaches, and API descriptions. |
-| [`certifications.js`](file:///c:/Madhu/Portfolio/src/data/certifications.js) | Register or update verified credentials, issuers, and direct links. |
-| [`socialLinks.js`](file:///c:/Madhu/Portfolio/src/data/socialLinks.js) | Put your custom GitHub, LinkedIn, or Kaggle URLs. |
+| [`profile.js`](file:///c:/Madhu/Portfolio/src/data/profile.js) | Edit your name, bio, location, phone, and Google Drive resume link. |
+| [`projects.js`](file:///c:/Madhu/Portfolio/src/data/projects.js) | Configure titles, taglines, project steps, approaches, and tech stacks. |
+| [`certifications.js`](file:///c:/Madhu/Portfolio/src/data/certifications.js) | Update verified credential titles, issuers, and URLs. |
 
 ---
 
 ## 📝 License
 
-Personal brand portfolio — all rights reserved © Jeedi Madhukar 2026
+Personal Brand Portfolio © Jeedi Madhukar 2026. All rights reserved.

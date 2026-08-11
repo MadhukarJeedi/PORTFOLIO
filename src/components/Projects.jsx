@@ -1,228 +1,116 @@
 import React, { useState } from 'react';
-import { ExternalLink, ChevronRight, Star, ArrowRight } from 'lucide-react';
+import { ExternalLink, Layers } from 'lucide-react';
 import { projects } from '../data/projects';
 import ProjectModal from './ProjectModal';
 
-const getDarkAccentText = (colorName) => {
-  if (colorName === 'emerald') return '#34d399';
-  if (colorName === 'blue') return '#60a5fa';
-  if (colorName === 'purple') return '#a78bfa';
-  return '#60a5fa';
+const categories = ['ALL', 'MACHINE LEARNING', 'NLP', 'GENERATIVE AI'];
+
+// Bullet points from official resume
+const resumeProjectDetails = {
+  1: [
+    'Performed data cleaning, preprocessing, and exploratory data analysis (EDA) on agricultural and environmental datasets to engineer features and surface actionable patterns for model training.',
+    'Applied feature engineering and handled class-imbalanced data using supervised learning techniques to improve model reliability, generalization, and predictive accuracy.',
+    'Built, trained, and tuned a Random Forest classification model, running validation tests and logging performance metrics to optimize hyperparameters, achieving 90% accuracy.',
+    'Deployed the trained model as a live inference application, integrating the full ML pipeline (preprocessing → prediction → output) into a usable interface.'
+  ],
+  2: [
+    'Engineered a content-based recommendation model in Python using NLP techniques (TF-IDF, CountVectorizer) to match user skill profiles against job listings.',
+    'Built and integrated a Streamlit web application to expose the model as a usable, API-like interface, covering data preprocessing and inference end-to-end.',
+    'Deployed the application as a live, publicly accessible tool providing continuous, real-time recommendations.'
+  ],
+  3: [
+    'Designed and built an AI-powered agent using a Groq-hosted LLM within a modular, agentic architecture to generate personalized itineraries from natural-language queries, applying prompt engineering and Generative AI techniques.',
+    'Developed a FastAPI backend with a documented REST API and a Streamlit frontend, integrating five external data pipelines (OpenWeather, Geoapify, RapidAPI, OpenRouteService, Unsplash) for live weather, points of interest, routing, and imagery.',
+    'Deployed the full-stack application (API + UI) to Render as an end-to-end, publicly accessible microservice, with secure environment-based configuration and live performance monitoring.'
+  ]
 };
 
-function ProjectCard({ project, onViewDetails, index }) {
-  const { accentColor, accentHex, accentBg, accentBorder } = project;
-  const isFeatured = project.featured;
-  const textColor = getDarkAccentText(accentColor);
+function ProjectCard({ project, onViewDetails }) {
+  const points = resumeProjectDetails[project.id] || [];
 
   return (
     <div
-      className="project-card-container rounded-2xl overflow-hidden transition-all duration-300 relative flex flex-col"
-      style={{
-        background: isFeatured
-          ? 'linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(13,21,38,0.95) 40%)'
-          : 'rgba(7,12,28,0.55)',
-        border: isFeatured
-          ? '1px solid rgba(139, 92, 246, 0.3)'
-          : '1px solid rgba(255,255,255,0.07)',
-        boxShadow: isFeatured ? '0 0 50px rgba(139, 92, 246, 0.1)' : 'none',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        if (!isFeatured) {
-          e.currentTarget.style.border = `1px solid ${accentBorder}`;
-          e.currentTarget.style.boxShadow = `0 12px 40px ${accentBg}`;
-        } else {
-          e.currentTarget.style.boxShadow = `0 20px 60px rgba(139, 92, 246, 0.2)`;
-        }
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = 'none';
-        if (!isFeatured) {
-          e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)';
-          e.currentTarget.style.boxShadow = 'none';
-        } else {
-          e.currentTarget.style.boxShadow = '0 0 50px rgba(139, 92, 246, 0.1)';
-        }
-      }}
+      className="bg-white border border-black/5 rounded-none overflow-hidden shadow-md flex flex-col lg:flex-row group hover:border-brand-yellow/60 transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 hover:shadow-lg"
     >
-      {/* Featured badge */}
-      {isFeatured && (
-        <div
-          className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold z-10"
-          style={{
-            background: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
-            color: '#fff',
-          }}
-        >
-          <Star size={11} />
-          Featured Project
-        </div>
-      )}
-
-      {/* Card top accent bar */}
-      <div
-        className="h-1 w-full"
-        style={{
-          background: isFeatured
-            ? 'linear-gradient(90deg, #8b5cf6, #a78bfa, #c4b5fd)'
-            : `linear-gradient(90deg, ${accentHex}, ${accentHex}80)`,
-        }}
-      />
-
-      {/* Project Image Header */}
+      {/* Project Image Panel */}
       {project.image && (
-        <div className="relative overflow-hidden aspect-[16/10] bg-[#070c1c]" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
+        <div className="lg:w-[35%] xl:w-[30%] relative overflow-hidden bg-brand-light-grey border-b lg:border-b-0 lg:border-r border-black/5 flex items-center justify-center min-h-[220px] lg:min-h-full">
           <img
             src={project.image}
             alt={project.title}
-            className="project-card-img"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103 absolute inset-0"
           />
-          {/* Bottom fade shadow */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'linear-gradient(to top, rgba(7, 12, 28, 0.6) 0%, transparent 40%)',
-            }}
-          />
+          {/* Overlay Category Pill */}
+          <span className="absolute top-4 left-4 bg-brand-charcoal text-white text-[9px] font-black tracking-widest px-2.5 py-1 rounded-none shadow-md z-20">
+            {project.category.toUpperCase()}
+          </span>
         </div>
       )}
 
-      <div className="p-6 flex flex-col flex-1">
-        {/* Category / tags */}
-        <div className="flex flex-wrap items-center gap-2 mb-4">
-          <span
-            className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
-            style={{
-              background: accentBg,
-              border: `1px solid ${accentBorder}`,
-              color: textColor,
-              fontFamily: 'JetBrains Mono, monospace',
-            }}
-          >
-            {project.category}
-          </span>
-          {project.tags.map(t => (
-            <span key={t} className="text-xs px-2 py-0.5 rounded" style={{ color: '#6b7280', background: 'rgba(255,255,255,0.04)' }}>
-              {t}
+      {/* Details Content Area */}
+      <div className="lg:w-[65%] xl:w-[70%] p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          {/* Title & Tagline */}
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+            <h3 className="font-extrabold text-lg sm:text-xl text-brand-charcoal">
+              {project.title}
+            </h3>
+            <span className="text-xs font-bold text-brand-yellow uppercase tracking-wider">
+              {project.tagline}
             </span>
-          ))}
-        </div>
+          </div>
 
-        {/* Title & tagline */}
-        <h3
-          className="font-bold mb-1"
-          style={{ fontSize: '1.2rem', color: '#f9fafb', letterSpacing: '-0.01em' }}
-        >
-          {project.title}
-        </h3>
-        <p className="text-sm font-medium mb-3" style={{ color: textColor }}>{project.tagline}</p>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: '#9ca3af' }}>
-          {project.description}
-        </p>
-
-        {/* Architecture flow */}
-        <div
-          className="rounded-xl p-4 mb-5"
-          style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.05)' }}
-        >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#4b5563', fontFamily: 'JetBrains Mono, monospace' }}>
-            Pipeline
-          </p>
-          <div className="flex flex-wrap items-center gap-1.5">
-            {project.architecture.map((step, i) => (
-              <React.Fragment key={i}>
-                <span
-                  className="text-xs px-2 py-1 rounded-lg font-medium"
-                  style={{
-                    background: `${accentHex}10`,
-                    color: textColor,
-                    border: `1px solid ${accentHex}20`,
-                  }}
-                >
-                  {step.step}
-                </span>
-                {i < project.architecture.length - 1 && (
-                  <ChevronRight size={12} style={{ color: '#374151', flexShrink: 0 }} />
-                )}
-              </React.Fragment>
+          {/* Point-wise Project Details */}
+          <ul className="project-points space-y-2 mb-6 text-xs sm:text-sm text-brand-charcoal/80">
+            {points.map((point, index) => (
+              <li key={index} className="leading-relaxed">
+                {point}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
-        {/* Metric */}
-        {project.metric && (
-          <div
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl mb-5 self-start"
-            style={{ background: `${accentHex}12`, border: `1px solid ${accentHex}25` }}
-          >
-            <span className="text-lg font-black" style={{ color: textColor }}>{project.metric.value}</span>
-            <span className="text-xs font-medium" style={{ color: '#9ca3af' }}>{project.metric.label}</span>
+        {/* Bottom row: Tech tags and buttons */}
+        <div className="pt-4 border-t border-black/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          {/* Tech tags */}
+          <div className="flex flex-wrap gap-1.5 max-w-xl">
+            {project.techStack.slice(0, 6).map((tech) => (
+              <span
+                key={tech}
+                className="text-[9px] font-black px-2 py-0.5 rounded-none bg-brand-light-grey text-brand-charcoal/70 uppercase tracking-wide border border-black/5"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.techStack.length > 6 && (
+              <span className="text-[9px] text-brand-charcoal/40 font-bold self-center">
+                +{project.techStack.length - 6} MORE
+              </span>
+            )}
           </div>
-        )}
 
-        {/* Tech stack chips */}
-        <div className="flex flex-wrap gap-1.5 mb-6">
-          {project.techStack.slice(0, 7).map(t => (
-            <span
-              key={t}
-              className="skill-chip"
-              style={{ fontSize: '0.7rem', padding: '0.2rem 0.55rem' }}
+          {/* Action links */}
+          <div className="flex gap-2 flex-shrink-0">
+            <button
+              onClick={() => onViewDetails(project)}
+              className="flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-none bg-brand-charcoal text-white font-black text-[10px] tracking-widest uppercase hover:bg-brand-charcoal/90 transition-colors cursor-pointer"
             >
-              {t}
-            </span>
-          ))}
-          {project.techStack.length > 7 && (
-            <span className="text-xs" style={{ color: '#6b7280', alignSelf: 'center' }}>
-              +{project.techStack.length - 7} more
-            </span>
-          )}
-        </div>
-
-        {/* Deployment badge */}
-        <div className="flex items-center gap-2 mb-6">
-          <span className="text-xs" style={{ color: '#4b5563' }}>Deployed on:</span>
-          <span
-            className="text-xs font-semibold px-2.5 py-1 rounded-full"
-            style={{ background: `${accentHex}10`, color: textColor, border: `1px solid ${accentHex}20` }}
-          >
-            {project.platform}
-          </span>
-        </div>
-
-        {/* Actions */}
-        <div className="flex flex-wrap gap-3 mt-auto">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 no-underline flex-1 justify-center"
-            style={{
-              background: isFeatured
-                ? 'linear-gradient(135deg, #8b5cf6, #6d28d9)'
-                : `linear-gradient(135deg, ${accentHex}, ${accentHex}cc)`,
-              color: '#fff',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = `0 6px 20px ${accentHex}40`;
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'none';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-          >
-            <ExternalLink size={14} />
-            {project.ctaLabel}
-          </a>
-          <button
-            onClick={() => onViewDetails(project)}
-            className="btn-ghost text-sm"
-            style={{ flex: 1, justifyCenter: 'center' }}
-          >
-            View Details
-            <ArrowRight size={14} />
-          </button>
+              <Layers size={12} />
+              View Architecture
+            </button>
+            
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center p-2.5 rounded-none border border-black/10 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
+                aria-label={`Open ${project.title} live preview`}
+              >
+                <ExternalLink size={14} className="text-brand-charcoal hover:text-brand-yellow" />
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -230,58 +118,52 @@ function ProjectCard({ project, onViewDetails, index }) {
 }
 
 export default function Projects() {
+  const [activeCategory, setActiveCategory] = useState('ALL');
   const [selectedProject, setSelectedProject] = useState(null);
 
-  return (
-    <section id="projects" className="py-32 sm:py-36" style={{ background: '#080e1a' }}>
-      <style>{`
-        .project-card-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .project-card-container:hover .project-card-img {
-          transform: scale(1.04);
-        }
-      `}</style>
-      <div className="section-container">
+  // Filter project cards
+  const filteredProjects = projects.filter((project) => {
+    if (activeCategory === 'ALL') return true;
+    return project.category.toUpperCase() === activeCategory;
+  });
 
-        {/* Header */}
-        <div className="mb-16 text-center">
-          <div className="flex justify-center mb-4">
-            <span className="section-tag">Live Projects</span>
-          </div>
-          <h2
-            className="font-bold mb-4"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#f9fafb', letterSpacing: '-0.02em' }}
-          >
-            Featured{' '}
-            <span className="gradient-text-purple">Deployed Applications</span>
-          </h2>
-          <p style={{ color: '#9ca3af', fontSize: '1.05rem', maxWidth: '580px', margin: '0 auto' }}>
-            Three production-deployed AI/ML applications — live, accessible, and built end-to-end.
-          </p>
-          <div
-            className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full text-sm font-medium"
-            style={{
-              background: 'rgba(16, 185, 129, 0.08)',
-              border: '1px solid rgba(16, 185, 129, 0.2)',
-              color: '#34d399',
-            }}
-          >
-            <span className="w-2 h-2 rounded-full pulse-dot" style={{ background: '#10b981', display: 'inline-block' }} />
-            All projects are live and publicly accessible
-          </div>
+  return (
+    <section
+      id="projects"
+      className="min-h-screen py-20 md:py-24 relative flex items-center"
+      style={{ background: 'var(--color-brand-light-grey)' }}
+    >
+      <div className="section-container w-full lg:pl-8">
+        
+        {/* Title Heading */}
+        <h2 className="section-title mb-10">PROJECTS</h2>
+
+        {/* Filter Navigation Tabs */}
+        <div className="flex flex-wrap items-center gap-2 mb-10 border-b border-black/5 pb-6">
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`font-black text-xs tracking-widest px-4 py-2 rounded-full transition-all duration-250 cursor-pointer ${
+                  isActive
+                    ? 'bg-brand-yellow text-brand-charcoal shadow-sm'
+                    : 'text-brand-charcoal/60 hover:text-brand-charcoal'
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Project cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
+        {/* Large Horizontal Projects Grid */}
+        <div className="grid grid-cols-1 gap-8 max-w-6xl">
+          {filteredProjects.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
-              index={i}
               onViewDetails={setSelectedProject}
             />
           ))}
@@ -289,7 +171,7 @@ export default function Projects() {
 
       </div>
 
-      {/* Modal */}
+      {/* Modal Popup Details */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}

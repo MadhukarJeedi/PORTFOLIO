@@ -1,104 +1,119 @@
-import React, { useState, useEffect } from 'react';
-import { Award, BookOpen, Shield, Code2, Medal, ExternalLink, X, FileCheck } from 'lucide-react';
-import { certificationGroups, issuerColors } from '../data/certifications';
-
-const iconMap = { Award, BookOpen, Shield, Code2, Medal };
-
-function CertModal({ group, colors, onClose }) {
-  const IconComp = iconMap[group.icon] || Award;
-  useEffect(() => {
-    const onKey = e => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [onClose]);
-  return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(3,7,18,0.75)', backdropFilter: 'blur(6px)' }} />
-      <div style={{ position: 'relative', zIndex: 1, background: '#0c1322', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '1.25rem', padding: '2rem', width: '100%', maxWidth: '540px', boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 30px ${colors.bg}`, maxHeight: '85vh', overflowY: 'auto' }}>
-        <button onClick={onClose} style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#9ca3af', width: '2rem', height: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.15s', borderRadius: '6px' }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#fff'; }} onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = '#9ca3af'; }}><X size={14} /></button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-          <div style={{ width: '3.25rem', height: '3.25rem', borderRadius: '0.875rem', background: colors.bg, border: `1px solid ${colors.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><IconComp size={22} style={{ color: colors.text }} /></div>
-          <div>
-            <h3 style={{ color: '#f9fafb', fontWeight: 700, fontSize: '1.15rem', lineHeight: 1.3, marginBottom: '0.3rem' }}>{group.groupTitle}</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.72rem', fontWeight: 700, padding: '0.2rem 0.65rem', borderRadius: '9999px', background: colors.bg, color: colors.text, border: `1px solid ${colors.border}` }}>{group.issuer}</span>
-              <span style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{group.credentials.length} Certificate{group.credentials.length !== 1 ? 's' : ''}</span>
-            </div>
-          </div>
-        </div>
-        <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.06)', marginBottom: '1.25rem' }} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-          {group.credentials.map((cred, i) => (
-            <a key={i} href={cred.url} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', padding: '0.875rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '0.75rem', textDecoration: 'none', transition: 'all 0.2s' }}
-              onMouseEnter={e => { e.currentTarget.style.background = colors.bg; e.currentTarget.style.border = `1px solid ${colors.border}`; e.currentTarget.style.transform = 'translateX(4px)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.border = '1px solid rgba(255,255,255,0.05)'; e.currentTarget.style.transform = 'none'; }}
-            >
-              <span style={{ minWidth: '1.625rem', height: '1.625rem', borderRadius: '50%', background: colors.bg, border: `1px solid ${colors.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 700, color: colors.text, flexShrink: 0 }}>{i + 1}</span>
-              <div style={{ flex: 1, minWidth: 0 }}><p style={{ color: '#e5e7eb', fontSize: '0.875rem', fontWeight: 600, lineHeight: 1.4 }}>{cred.label}</p></div>
-              <ExternalLink size={14} style={{ color: colors.text, opacity: 0.7, flexShrink: 0 }} />
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Award, ExternalLink, ChevronDown } from 'lucide-react';
+import { certificationGroups } from '../data/certifications';
 
 export default function Certifications() {
-  const [activeGroup, setActiveGroup] = useState(null);
-  const handleCardClick = (group) => {
-    if (group.credentials.length === 0) return;
-    if (group.credentials.length === 1) { window.open(group.credentials[0].url, '_blank', 'noopener,noreferrer'); }
-    else { setActiveGroup(group); }
+  const [expandedGroups, setExpandedGroups] = useState({});
+
+  const toggleExpand = (id) => {
+    setExpandedGroups((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
   };
-  const activeColors = activeGroup ? (issuerColors[activeGroup.issuerColor] || issuerColors.blue) : null;
+
   return (
-    <>
-      <section id="certifications" className="py-32 sm:py-36" style={{ background: '#030712' }}>
-        <div className="section-container">
-          <div className="mb-14 text-center">
-            <div className="flex justify-center mb-4"><span className="section-tag">Certifications</span></div>
-            <h2 className="font-bold mb-4" style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#f9fafb', letterSpacing: '-0.02em' }}>Credentials &amp; <span className="gradient-text-purple">Certifications</span></h2>
-            <p style={{ color: '#9ca3af', fontSize: '1.05rem', maxWidth: '500px', margin: '0 auto' }}>Verified learning achievements across AI, ML, Python, and Data Science. Click any card to view individual certificates.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certificationGroups.map(group => {
-              const IconComp = iconMap[group.icon] || Award;
-              const colors = issuerColors[group.issuerColor] || issuerColors.blue;
-              const isClickable = group.credentials.length > 0;
-              const count = group.credentials.length;
-              return (
-                <div key={group.id} onClick={() => handleCardClick(group)}
-                  style={{ background: 'rgba(7, 12, 28, 0.55)', border: '1px solid rgba(255, 255, 255, 0.07)', borderRadius: '1.125rem', padding: '1.625rem', cursor: isClickable ? 'pointer' : 'default', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column', gap: '1rem', minHeight: '180px', boxShadow: 'none' }}
-                  onMouseEnter={e => { if (!isClickable) return; e.currentTarget.style.border = `1px solid ${colors.border}`; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 8px 30px ${colors.bg}`; }}
-                  onMouseLeave={e => { e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.07)'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyBetween: 'space-between' }}>
-                    <div style={{ width: '3rem', height: '3rem', borderRadius: '0.875rem', background: colors.bg, border: `1px solid ${colors.border}`, display: 'flex', alignItems: 'center', justify: 'center' }}><IconComp size={20} style={{ color: colors.text }} /></div>
-                    {count > 0 && (<span style={{ fontSize: '0.7rem', fontWeight: 700, padding: '0.25rem 0.625rem', borderRadius: '9999px', background: colors.bg, color: colors.text, border: `1px solid ${colors.border}` }}>{count} cert{count !== 1 ? 's' : ''}</span>)}
+    <section
+      id="certifications"
+      className="min-h-screen py-20 md:py-24 relative flex items-center"
+      style={{ background: 'var(--color-brand-light-grey)' }}
+    >
+      <div className="section-container w-full lg:pl-8">
+        {/* Title Heading */}
+        <h2 className="section-title mb-10">Certifications</h2>
+
+        {/* Grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {certificationGroups.map((group) => {
+            const isExpanded = !!expandedGroups[group.id];
+            const hasLinks = group.credentials && group.credentials.length > 0;
+            return (
+              <div 
+                key={group.id}
+                onClick={() => toggleExpand(group.id)}
+                className="cursor-pointer bg-white border border-black/5 rounded-none p-8 md:p-10 shadow-sm flex flex-col justify-between hover:border-brand-yellow/60 hover:scale-[1.03] hover:shadow-lg transition-all duration-300 select-none"
+              >
+                <div>
+                  {/* Badge & Category */}
+                  <div className="flex justify-between items-start gap-2 mb-4">
+                    <span className="bg-brand-charcoal text-white text-[9px] font-black tracking-widest px-2.5 py-1 rounded-none">
+                      {group.issuer.toUpperCase()}
+                    </span>
+                    <span className="text-[10px] font-bold text-brand-yellow uppercase tracking-wider">
+                      {group.category}
+                    </span>
                   </div>
-                  <div>
-                    <h3 style={{ color: '#f3f4f6', fontWeight: 700, fontSize: '1rem', lineHeight: 1.35, marginBottom: '0.5rem' }}>{group.groupTitle}</h3>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.72rem', fontWeight: 700, padding: '0.2rem 0.65rem', borderRadius: '9999px', background: colors.bg, color: colors.text, border: `1px solid ${colors.border}` }}>{group.issuer}</span>
-                      <span style={{ fontSize: '0.72rem', color: '#9ca3af', background: 'rgba(255, 255, 255, 0.04)', padding: '0.2rem 0.5rem', borderRadius: '0.25rem' }}>{group.category}</span>
+
+                  {/* Group Title and Expand Chevron */}
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="font-extrabold text-base text-brand-charcoal flex items-center gap-2">
+                      <Award size={18} className="text-brand-yellow stroke-[2.5]" />
+                      {group.groupTitle}
+                    </h3>
+                    <div 
+                      className={`text-brand-charcoal/40 transition-transform duration-300 ${
+                        isExpanded ? 'rotate-180 text-brand-yellow' : ''
+                      }`}
+                    >
+                      <ChevronDown size={18} className="stroke-[3]" />
                     </div>
                   </div>
-                  {isClickable && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: 'auto', paddingTop: '0.75rem', borderTop: '1px solid rgba(255, 255, 255, 0.06)', color: colors.text, fontSize: '0.78rem', fontWeight: 600, opacity: 0.9 }}>
-                      <FileCheck size={13} />
-                      <span>{count === 1 ? 'View Certificate' : `View All ${count} Certificates`}</span>
-                      <ExternalLink size={11} style={{ marginLeft: 'auto' }} />
-                    </div>
-                  )}
+
+                  {/* Animated Credentials List */}
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="mt-6 pt-6 border-t border-black/5" onClick={(e) => e.stopPropagation()}>
+                          {hasLinks ? (
+                            <ul className="space-y-3">
+                              {group.credentials.map((cred, index) => (
+                                <li key={index} className="group/item flex items-center justify-between gap-3">
+                                  <span className="text-xs text-brand-charcoal/80 leading-normal">
+                                    {cred.label}
+                                  </span>
+                                  {cred.url && (
+                                    <a
+                                      href={cred.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-brand-charcoal/30 hover:text-brand-yellow transition-colors flex-shrink-0"
+                                      aria-label={`Verify ${cred.label}`}
+                                    >
+                                      <ExternalLink size={12} />
+                                    </a>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-xs text-brand-charcoal/50 leading-relaxed italic">
+                              National Apprenticeship Certificate issued by NCVT (Ministry of Skill Development &amp; Entrepreneurship).
+                            </p>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              );
-            })}
-          </div>
+
+                <div className="border-t border-black/5 pt-4 mt-6">
+                  <span className="text-[9px] font-black text-brand-charcoal/40 uppercase tracking-widest">
+                    {isExpanded ? 'Click to collapse' : 'Click to verify credentials'}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </section>
-      {activeGroup && <CertModal group={activeGroup} colors={activeColors} onClose={() => setActiveGroup(null)} />}
-    </>
+
+      </div>
+    </section>
   );
 }
