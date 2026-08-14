@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Award } from 'lucide-react';
 import { profile } from '../data/profile';
@@ -35,6 +35,22 @@ export default function Contact({ onOpenResume }) {
   const formRef = useRef(null);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [emailLink, setEmailLink] = useState({
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=iammadhukarjeedi%40gmail.com',
+    target: '_blank',
+    rel: 'noopener noreferrer'
+  });
+
+  useEffect(() => {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+      setEmailLink({
+        href: 'mailto:iammadhukarjeedi@gmail.com',
+        target: '_self',
+        rel: ''
+      });
+    }
+  }, []);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -100,9 +116,9 @@ export default function Contact({ onOpenResume }) {
 
               {/* Email */}
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=iammadhukarjeedi%40gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={emailLink.href}
+                target={emailLink.target}
+                rel={emailLink.rel || undefined}
                 className="flex items-center gap-4 group no-underline"
                 aria-label="Email Madhukar"
               >
