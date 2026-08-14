@@ -4,7 +4,7 @@ import { Home, User, FileText, LayoutGrid, Award, Send } from 'lucide-react';
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
   { id: 'about', icon: User, label: 'About Me' },
-  { id: 'resume', icon: FileText, label: 'Education' },
+  { id: 'resume', icon: FileText, label: 'Resume & Edu' },
   { id: 'projects', icon: LayoutGrid, label: 'Projects' },
   { id: 'certifications', icon: Award, label: 'Certifications' },
   { id: 'contact', icon: Send, label: 'Contact' },

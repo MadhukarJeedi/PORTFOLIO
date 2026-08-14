@@ -1,7 +1,7 @@
 import React from 'react';
 import { profile } from '../data/profile';
 
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   const handleScrollToAbout = () => {
     const aboutSection = document.getElementById('about');
     if (aboutSection) {
@@ -19,7 +19,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center py-16 lg:py-24 relative overflow-hidden"
+      className="min-h-fit md:min-h-screen flex items-center justify-center py-12 md:py-24 relative overflow-hidden"
       style={{ background: 'var(--color-brand-light-grey)' }}
     >
       {/* Editorial layout grid */}
@@ -58,7 +58,7 @@ export default function Hero() {
             I build end-to-end, production-ready AI applications that turn raw data into intelligent action.
           </p>
 
-          {/* 4 Action Pill Buttons (Rounded-full) with 3D tactile effect */}
+          {/* Action Pill Buttons (Rounded-full) with 3D tactile effect */}
           <div className="flex flex-wrap gap-4 mt-2 max-w-2xl">
             <button
               onClick={handleScrollToAbout}
@@ -72,14 +72,12 @@ export default function Hero() {
             >
               CONTACT ME
             </button>
-            <a
-              href={profile.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-brand-charcoal text-white hover:bg-brand-yellow hover:text-brand-charcoal font-black text-sm tracking-widest px-10 py-5 rounded-full uppercase border-b-4 border-black/45 active:translate-y-[4px] active:border-b-0 transition-all duration-100 shadow-md flex items-center justify-center no-underline select-none"
+            <button
+              onClick={onOpenResume}
+              className="bg-brand-charcoal text-white hover:bg-brand-yellow hover:text-brand-charcoal font-black text-sm tracking-widest px-10 py-5 rounded-full uppercase border-b-4 border-black/45 active:translate-y-[4px] active:border-b-0 transition-all duration-100 shadow-md flex items-center justify-center select-none cursor-pointer"
             >
-              DOWNLOAD RESUME
-            </a>
+              VIEW RESUME
+            </button>
             <a
               href="https://www.linkedin.com/in/madhukarjeedi/"
               target="_blank"

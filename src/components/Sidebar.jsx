@@ -6,7 +6,7 @@ import { profile } from '../data/profile';
 const menuItems = [
   { id: 'home', label: 'HOME' },
   { id: 'about', label: 'ABOUT ME' },
-  { id: 'resume', label: 'EDUCATION' },
+  { id: 'resume', label: 'RESUME & EDU' },
   { id: 'projects', label: 'PROJECTS' },
   { id: 'certifications', label: 'CERTIFICATIONS' },
   { id: 'contact', label: 'CONTACT' },

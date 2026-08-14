@@ -31,7 +31,7 @@ const EMAILJS_SERVICE_ID  = 'service_f2g41zb';
 const EMAILJS_TEMPLATE_ID = 'template_9bft3w4';
 const EMAILJS_PUBLIC_KEY  = 'cLb0MmUH4g4Odr1Ak';
 
-export default function Contact() {
+export default function Contact({ onOpenResume }) {
   const formRef = useRef(null);
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
@@ -61,7 +61,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen py-20 md:py-24 relative flex flex-col justify-between"
+      className="min-h-fit md:min-h-screen py-12 md:py-24 relative flex flex-col justify-between"
       style={{ background: 'var(--color-brand-light-grey)' }}
     >
       <div className="section-container w-full my-auto lg:pl-8">
@@ -82,38 +82,40 @@ export default function Contact() {
             {/* Info Cards (Square Box + Yellow Circle + Black Icon) */}
             <div className="space-y-6 mb-8">
               {/* Phone */}
-              <div className="flex items-center gap-4">
-                <a
-                  href={profile.phoneHref}
-                  className="w-12 h-12 rounded-full bg-brand-yellow text-brand-charcoal flex items-center justify-center shadow hover:scale-105 transition-transform"
-                  aria-label="Call Madhukar"
-                >
+              <a
+                href={profile.phoneHref}
+                className="flex items-center gap-4 group no-underline"
+                aria-label="Call Madhukar"
+              >
+                <div className="w-12 h-12 rounded-full bg-brand-yellow text-brand-charcoal flex items-center justify-center shadow group-hover:scale-105 transition-transform">
                   <Phone size={18} className="stroke-[2.5]" />
-                </a>
+                </div>
                 <div>
                   <h4 className="font-extrabold text-[10px] text-brand-yellow uppercase tracking-wider">Phone</h4>
-                  <a href={profile.phoneHref} className="text-sm font-black text-brand-charcoal hover:underline">
+                  <span className="text-sm font-black text-brand-charcoal group-hover:underline">
                     {profile.phone}
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
 
               {/* Email */}
-              <div className="flex items-center gap-4">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="w-12 h-12 rounded-full bg-brand-yellow text-brand-charcoal flex items-center justify-center shadow hover:scale-105 transition-transform"
-                  aria-label="Email Madhukar"
-                >
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=iammadhukarjeedi%40gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 group no-underline"
+                aria-label="Email Madhukar"
+              >
+                <div className="w-12 h-12 rounded-full bg-brand-yellow text-brand-charcoal flex items-center justify-center shadow group-hover:scale-105 transition-transform">
                   <Mail size={18} className="stroke-[2.5]" />
-                </a>
+                </div>
                 <div>
                   <h4 className="font-extrabold text-[10px] text-brand-yellow uppercase tracking-wider">Email</h4>
-                  <a href={`mailto:${profile.email}`} className="text-sm font-black text-brand-charcoal hover:underline">
+                  <span className="text-sm font-black text-brand-charcoal group-hover:underline">
                     {profile.email}
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
 
               {/* Location */}
               <div className="flex items-center gap-4">
@@ -160,16 +162,14 @@ export default function Contact() {
               </a>
             </div>
 
-            {/* Download Resume 3D Button */}
+            {/* View Resume 3D Button */}
             <div className="mt-8">
-              <a
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex bg-brand-charcoal text-white hover:bg-brand-yellow hover:text-brand-charcoal font-black text-sm tracking-widest px-10 py-5 rounded-full uppercase border-b-4 border-black/45 active:translate-y-[4px] active:border-b-0 transition-all duration-100 shadow-md items-center justify-center no-underline select-none cursor-pointer"
+              <button
+                onClick={onOpenResume}
+                className="inline-flex bg-brand-charcoal text-white hover:bg-brand-yellow hover:text-brand-charcoal font-black text-sm tracking-widest px-10 py-5 rounded-full uppercase border-b-4 border-black/45 active:translate-y-[4px] active:border-b-0 transition-all duration-100 shadow-md items-center justify-center select-none cursor-pointer"
               >
-                DOWNLOAD RESUME
-              </a>
+                VIEW RESUME
+              </button>
             </div>
           </div>
 

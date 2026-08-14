@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { socialLinksArray } from '../data/socialLinks';
 
 const navLinks = [
@@ -7,7 +7,7 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
+  { label: 'Resume & Edu', href: '#resume' },
   { label: 'Certifications', href: '#certifications' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -34,7 +34,12 @@ function KaggleIcon({ size = 15 }) {
     </svg>
   );
 }
-const iconMap = { LinkedIn: LinkedInIcon, GitHub: GithubIcon, Kaggle: KaggleIcon };
+const iconMap = { 
+  LinkedIn: LinkedInIcon, 
+  GitHub: GithubIcon, 
+  Kaggle: KaggleIcon,
+  Email: Mail
+};
 
 export default function Footer() {
   const handleNav = (href) => {

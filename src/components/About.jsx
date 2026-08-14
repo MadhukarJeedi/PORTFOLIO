@@ -61,7 +61,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="min-h-screen py-20 md:py-24 relative flex items-center"
+      className="min-h-fit md:min-h-screen py-12 md:py-24 relative flex items-center"
       style={{ background: 'var(--color-brand-light-grey)' }}
     >
       <div className="section-container w-full lg:pl-8">
@@ -84,7 +84,7 @@ export default function About() {
           </div>
 
           {/* Technical Skills Section */}
-          <div className="border-t border-black/5 pt-10 mt-4">
+          <div id="skills" className="border-t border-black/5 pt-10 mt-4">
             {/* Styled exactly like ABOUT ME */}
             <h2 className="section-title mb-10">TECHNICAL SKILLS</h2>
 

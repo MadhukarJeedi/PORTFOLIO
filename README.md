@@ -8,8 +8,12 @@ A premium, recruiter-ready personal portfolio styled after a custom bold, high-c
 ## 🎨 Design System & Highlights
 
 - **Vibrant Accent Palette**: High-contrast Yellow-Orange (`#F2B822`), Deep Charcoal (`#1C1C1C`), and Light-Grey (`#E5E5E5`) backing.
-- **Split Screen Sidebar Layout**: Left fixed fixed sidebar (`Sidebar.jsx`) with custom portrait positioning (`12%` top crop to fully show hair/face), desktop scroll buttons, and mobile drawer.
+- **Split Screen Sidebar Layout**: Left fixed sidebar (`Sidebar.jsx`) with custom portrait positioning (`12%` top crop to fully show hair/face), desktop scroll buttons, and mobile drawer.
 - **Tactile 3D Buttons**: Prominent pill-shaped (`rounded-full`) action buttons with custom 3D bottom borders (`border-b-4`) that compress on press/click (`active:translate-y-[4px] active:border-b-0`).
+- **Interactive Resume Modal**: Click **VIEW RESUME** in the Hero or Contact sections to open a custom-designed full-screen PDF preview modal using your Google Drive resume preview link. Includes fallback opening options.
+- **Interactive Resume Section Tab**: Toggle between a timeline of your **Academic Background** and a live **Interactive Resume** PDF viewer inside the **RESUME & EDUCATION** section.
+- **Direct Gmail Web Compose**: Click your email card in the contact section to open Gmail's Web compose window directly in a new tab, pre-filling your address in the "TO" field, leaving your portfolio tab active and undisrupted.
+- **Mobile Spacing Optimization**: Replaced fixed full-height wrappers with responsive `min-h-fit md:min-h-screen` and compact `py-12` vertical padding to ensure a clean, cohesive mobile scrolling experience without large empty gaps.
 - **Comprehensive Skills Grid**: Reorganized About Me slide showing your official resume Professional Summary, followed by a grid of **28 individual technical skills** structured as square capsule pills `[ Icon | Skill Name ]`.
 - **Horizontal Project Cards**: Spatially expanded horizontal rows on desktop showing exact resume bullet points formatted with solid circular yellow dot points (`●`).
 - **Clean Education Cards**: Center-aligned single-column timeline of academic milestones, free of distracting lines and circles.
@@ -35,11 +39,12 @@ Portfolio/
 │   │   ├── RightNavigation.jsx  # Floating dot navigation timeline spy
 │   │   ├── Hero.jsx             # Intro greeting, bold headings, and 3D buttons
 │   │   ├── About.jsx            # Biography summary + 28 custom skill capsule pills
-│   │   ├── Resume.jsx           # Clean centered single-column Education cards
+│   │   ├── Resume.jsx           # Tab-based Education timeline & Interactive PDF viewer
+│   │   ├── ResumeModal.jsx      # Lightbox overlay showing Google Drive PDF preview
 │   │   ├── Projects.jsx         # 1-column large projects cards with custom yellow bullets
 │   │   ├── ProjectModal.jsx     # Detail overlay popup modal
 │   │   ├── Certifications.jsx  # Interactive accordion cards (Framer Motion)
-│   │   ├── Contact.jsx          # Sized up form inputs and EmailJS integration
+│   │   ├── Contact.jsx          # Sized up form inputs, EmailJS, and unified clickable links
 │   │   └── LinkedInIcon.jsx     # Inline SVG icon helpers
 │   ├── data/
 │   │   ├── certifications.js    # Verified credentials & Drive links

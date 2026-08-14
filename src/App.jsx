@@ -7,9 +7,11 @@ import Resume from './components/Resume';
 import Projects from './components/Projects';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
+import ResumeModal from './components/ResumeModal';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]');
@@ -44,16 +46,19 @@ export default function App() {
 
       {/* Main Content Area (Uses .main-content class to prevent sidebar overlap) */}
       <main className="main-content pt-16 md:pt-0 relative z-10">
-        <Hero />
+        <Hero onOpenResume={() => setIsResumeOpen(true)} />
         <About />
         <Resume />
         <Projects />
         <Certifications />
-        <Contact />
+        <Contact onOpenResume={() => setIsResumeOpen(true)} />
       </main>
 
       {/* Right Floating Indicator Dots (Desktop only) */}
       <RightNavigation activeSection={activeSection} />
+
+      {/* Interactive Resume Modal Viewer */}
+      {isResumeOpen && <ResumeModal onClose={() => setIsResumeOpen(false)} />}
     </div>
   );
 }

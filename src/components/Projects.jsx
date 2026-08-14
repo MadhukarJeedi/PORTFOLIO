@@ -130,7 +130,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 md:py-24 relative flex items-center"
+      className="min-h-fit md:min-h-screen py-12 md:py-24 relative flex items-center"
       style={{ background: 'var(--color-brand-light-grey)' }}
     >
       <div className="section-container w-full lg:pl-8">
