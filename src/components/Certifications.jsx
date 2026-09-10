@@ -83,10 +83,11 @@ export default function Certifications() {
                                       href={cred.url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="text-brand-charcoal/30 hover:text-brand-yellow transition-colors flex-shrink-0"
+                                      className="bg-[#0077b5] text-white hover:bg-brand-charcoal hover:text-white font-black text-[9px] tracking-widest px-3 py-1 rounded-full uppercase border-b-2 border-[#00527c] active:translate-y-[2px] active:border-b-0 transition-all duration-100 shadow-sm flex items-center justify-center gap-1 no-underline select-none flex-shrink-0"
                                       aria-label={`Verify ${cred.label}`}
                                     >
-                                      <ExternalLink size={12} />
+                                      <ExternalLink size={9} />
+                                      View
                                     </a>
                                   )}
                                 </li>

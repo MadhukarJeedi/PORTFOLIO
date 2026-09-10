@@ -104,10 +104,11 @@ function ProjectCard({ project, onViewDetails }) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center p-2.5 rounded-none border border-black/10 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
+                className="bg-[#0077b5] text-white hover:bg-brand-charcoal hover:text-white font-black text-[10px] tracking-widest px-5 py-2.5 rounded-full uppercase border-b-4 border-[#00527c] active:translate-y-[4px] active:border-b-0 transition-all duration-100 shadow-md flex items-center justify-center gap-1.5 no-underline select-none cursor-pointer"
                 aria-label={`Open ${project.title} live preview`}
               >
-                <ExternalLink size={14} className="text-brand-charcoal hover:text-brand-yellow" />
+                <ExternalLink size={12} />
+                Live App
               </a>
             )}
           </div>
